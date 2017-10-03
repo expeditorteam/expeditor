@@ -1,5 +1,6 @@
 <?php
-namespace expeditorBundle\Utilisateur;
+
+namespace ExpeditorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -7,11 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
  * Description of Employe
  *
  * @author rremond2017
- * @ORM\Table(name="personne", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})})
+ * @ORM\Table(name="utilisateurs", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})})
  * @ORM\Entity
  */
-class Utilisateur
-{
+class Utilisateur {
+
     /**
      * @var integer
      *
@@ -20,9 +21,8 @@ class Utilisateur
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-  
 
-        /**
+    /**
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
@@ -57,7 +57,7 @@ class Utilisateur
      */
     private $profil;
 
-  function getId() {
+    function getId() {
         return $this->id;
     }
 
@@ -105,5 +105,4 @@ class Utilisateur
         $this->profil = $profil;
     }
 
-    
 }
