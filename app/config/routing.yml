@@ -1,0 +1,7 @@
+expeditor:
+    resource: "@ExpeditorBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
