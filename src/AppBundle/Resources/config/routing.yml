@@ -1,15 +1,15 @@
 expeditor_homepage:
     path:     /
-    defaults: { _controller: ExpeditorBundle:Default:index }
+    defaults: { _controller: AppBundle:Default:index }
 expeditor_employe:
     path:     /employe
-    defaults: { _controller: ExpeditorBundle:Employe:index }
+    defaults: { _controller: AppBundle:Employe:index }
 expeditor_manager:
     path:     /manager
-    defaults: { _controller: ExpeditorBundle:Manager:index }
+    defaults: { _controller: AppBundle:Manager:index }
 expeditor_manager_articles:
     path:     /manager/articles
-    defaults: { _controller: ExpeditorBundle:Manager:articles }
+    defaults: { _controller: AppBundle:Manager:articles }
 app:
-    resource: '@ExpeditorBundle/Controller/'
+    resource: '@AppBundle/Controller/'
     type:     annotation
