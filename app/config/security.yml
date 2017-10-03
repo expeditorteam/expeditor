@@ -29,4 +29,3 @@ security:
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/employe, role: ROLE_ADMIN }
         - { path: ^/manager, role: ROLE_SUPER_ADMIN }
-        
