@@ -1,6 +1,6 @@
 <?php
 
-namespace ExpeditorBundle\Controller;
+namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,7 +14,7 @@ class ManagerController extends Controller
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('ExpeditorBundle::Manager/index.html.twig', [
+        return $this->render('AppBundle::Manager/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
@@ -24,7 +24,7 @@ class ManagerController extends Controller
     public function articlesAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('ExpeditorBundle::Manager/articles.html.twig', [
+        return $this->render('AppBundle::Manager/articles.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
