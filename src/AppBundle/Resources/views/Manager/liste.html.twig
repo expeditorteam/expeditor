@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    
+    <table class="table">
+        <tr>
+            <th>Nom </th>
+            <th>
+                <a class="btn btn-default " href="{{ url('eni_livre_edit') }}"><span class="glyphicon glyphicon-plus"></span></a> 
+            </th>
+        </tr>
+    {% for manager in managers %}
+        <tr >
+            <td>{{ manager.nom }} </td>
+            <td>
+                <a class="btn btn-default " href="{{ url('eni_livre_edit', {'nom': manager.nom }) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </ul>
+    
+    {% endblock %}

@@ -28,7 +28,7 @@ class ManagerController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
-}
+
 /*
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -40,3 +40,134 @@ class DefaultController extends Controller
     }
 }
 */
+
+
+    public function listeAction() {
+
+        // récupération de l'entity manager à partir du service Doctrine
+        $em = $this->getDoctrine()->getManager();
+
+        // récupération du repository de manager:
+        $repo = $em->getRepository('AppBundle:Manager');
+
+        $managers = $repo->findAll();
+
+        return $this->render('AppBundle:Manager:liste.html.twig', ['managers' => $managers]
+        );
+    }
+
+    /**
+     * 
+     * @param Request $request
+     * @return type
+     * @deprecated since 21/06/2017
+     */
+    public function addAction(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $manager = new Manager();
+
+        $form = $this->createFormBuilder($manager)
+                ->add('nom')
+                ->add('prenom')
+                ->add('email')
+                ->add('password')
+                ->add('enregistrer', SubmitType::class)
+                ->getForm();
+
+        // Valorisation des attributs de l'objet manager
+        // avec les champs du formulaire
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // Sauvegarde du manager si le formulaire est valide
+            $em->persist($manager);
+
+            $em->flush();
+        }
+
+        // intégration de bootstrap avec la modification du fichier config.yml : 
+        // form_themes: ['bootstrap_3_layout.html.twig']
+        
+        return $this->render('AppBundle:Manager:add.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * 
+     * @param Request $request
+     * @param type $id
+     * @return type
+     * @deprecated since 21/06/2017
+     */
+    public function updateAction(Request $request, $id) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $repository = $em->getRepository('AppBundle:Manager');
+        // récupération d'une instance de classe manager
+        $manager = $repository->find($id);
+
+        $form = $this->createFormBuilder($manager)
+                ->add('nom')
+                ->add('prenom')
+                ->add('email')
+                ->add('password')
+                ->add('enregistrer', SubmitType::class)
+                ->getForm();
+
+        // Valorisation des attributs de l'objet manager
+        // avec les champs du formulaire
+        $form->handleRequest($request);
+
+        dump($manager);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Sauvegarde du manager si le formulaire est valide
+            $em->persist($manager);
+
+            $em->flush();
+        }
+
+        return $this->render('EniBundle:Manager:add.html.twig', ['form' => $form->createView()]);
+    }
+
+    public function editAction(Request $request, Manager $manager = null) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        // $manager est demandé en parametre du contrôleur à la place de la variable 
+        // $id demandée dans la route du fait que $id soit la PK
+        if ($manager == null) {
+            $manager = new Manager();
+        }
+        
+        // Création de la classe formBuilder, ajout des champs (attributs de l'objet lié au formulaire), 
+        // et retour d'une instance d'une classe Form Symfony
+        $form = $this->createFormBuilder($manager)
+                ->add('nom')
+                ->add('prenom')
+                ->add('email')
+                ->add('password')
+                ->add('enregistrer', SubmitType::class)
+                ->getForm();
+
+        // Valorisation des attributs de l'objet manager
+        // avec les champs du formulaire
+        $form->handleRequest($request);
+
+        dump($manager);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Sauvegarde du manager si le formulaire est valide
+            $em->persist($manager);
+
+            $em->flush();
+
+            return $this->redirectToRoute('eni_managerlistepage');
+        }
+
+        return $this->render('AppBundle:Manager:add.html.twig', ['form' => $form->createView()]);
+    }
+}

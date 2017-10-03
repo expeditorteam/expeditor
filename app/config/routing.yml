@@ -12,6 +12,9 @@ expeditor_manager:
 expeditor_manager_articles:
     path:     /manager/articles
     defaults: { _controller: AppBundle:Manager:articles }
+expeditor_role:
+    path:     /role
+    defaults: { _controller: AppBundle:Employe:role }
 
 app:
     resource: '@AppBundle/Controller/'
