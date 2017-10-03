@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,11 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="utilisateurs", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})})
  * @ORM\Entity
  */
-class Utilisateur {
+class Utilisateur extends BaseUser {
 
     /**
      * @var integer
      *
+     * @ORM\Id
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -105,4 +107,10 @@ class Utilisateur {
         $this->profil = $profil;
     }
 
+    
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+    }
 }
