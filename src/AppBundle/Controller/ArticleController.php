@@ -5,6 +5,10 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Article;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+
 
 class ArticleController extends Controller {
 
@@ -28,17 +32,45 @@ class ArticleController extends Controller {
       //  return $this->render('ExpeditorBundle:Default:index.html.twig');
       } */
 
-    public function listeAction() {
+    public function listeAction(Request $request) {
+        
+       // $form="ok";
 
-        // récupération de l'entity manager à partir du service Doctrine
         $em = $this->getDoctrine()->getManager();
+// 
+        $article = new Article();
+        $form = $this->createFormBuilder($article)
+                ->add('id', HiddenType::class)
+                ->add('nom')
+                ->add('stock')
+                ->add('poids')
+                ->add('enregistrer', SubmitType::class)
+                ->getForm();
 
-        // récupération du repository de Article:
+        // Valorisation des attributs de l'objet article
+        // avec les champs du formulaire
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // Sauvegarde de l'article si le formulaire est valide
+            $em->persist($article);
+
+            $em->flush();
+        }
+
+
+        
+        
+        // rÃ©cupÃ©ration de l'entity manager Ã  partir du service Doctrine
+        //$em = $this->getDoctrine()->getManager();
+
+        // rÃ©cupÃ©ration du repository de Article:
         $repo = $em->getRepository('AppBundle:Article');
 
         $articles = $repo->findAll();
 
-        return $this->render('AppBundle:Article:liste.html.twig', ['articles' => $articles]
+        return $this->render('AppBundle:Article:liste.html.twig', ['articles' => $articles,'form' => $form->createView()]
         );
     }
 
@@ -53,7 +85,6 @@ class ArticleController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $article = new Article();
-
         $form = $this->createFormBuilder($article)
                 ->add('nom')
                 ->add('stock')
@@ -73,7 +104,7 @@ class ArticleController extends Controller {
             $em->flush();
         }
 
-        // intégration de bootstrap avec la modification du fichier config.yml : 
+        // intÃ©gration de bootstrap avec la modification du fichier config.yml : 
         // form_themes: ['bootstrap_3_layout.html.twig']
 
         return $this->render('AppBundle:Article:add.html.twig', ['form' => $form->createView()]);
@@ -91,7 +122,7 @@ class ArticleController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $repository = $em->getRepository('AppBundle:Article');
-        // récupération d'une instance de classe article
+        // rÃ©cupÃ©ration d'une instance de classe article
         $article = $repository->find($id);
 
         $form = $this->createFormBuilder($article)
@@ -108,7 +139,7 @@ class ArticleController extends Controller {
         dump($article);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Sauvegarde de l'employé si le formulaire est valide
+            // Sauvegarde de l'employÃ© si le formulaire est valide
             $em->persist($article);
 
             $em->flush();
@@ -121,13 +152,13 @@ class ArticleController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
 
-        // $article est demandé en parametre du contrôleur à la place de la variable 
-        // $id demandée dans la route du fait que $id soit la PK
+        // $article est demandÃ© en parametre du contrÃ´leur Ã  la place de la variable 
+        // $id demandÃ©e dans la route du fait que $id soit la PK
         if ($article == null) {
             $article = new Article();
         }
 
-        // Création de la classe formBuilder, ajout des champs (attributs de l'objet lié au formulaire), 
+        // CrÃ©ation de la classe formBuilder, ajout des champs (attributs de l'objet liÃ© au formulaire), 
         // et retour d'une instance d'une classe Form Symfony
         $form = $this->createFormBuilder($article)
                 ->add('nom')

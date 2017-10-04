@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="articles")
  * @ORM\Entity
  */
-class Article {
+ class Article {
 
     /**
      * @var integer
@@ -74,10 +74,9 @@ class Article {
     function setPoids($poids) {
         $this->poids = $poids;
     }
-    function __construct($nom, $stock, $poids) {
+    function __construct($nom=null, $stock=null, $poids=null) {
         $this->nom = $nom;
         $this->stock = $stock;
         $this->poids = $poids;
     }
-
 }

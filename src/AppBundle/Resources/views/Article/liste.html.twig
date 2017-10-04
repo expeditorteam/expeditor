@@ -1,33 +1,30 @@
 {% extends "base.html.twig" %}
 {% block body %}
-    
+    <script>
+        function loadForm(id,nom,poids,stock){
+            document.getElementById("form_id").value=id;
+            document.getElementById("form_nom").value=nom;
+            document.getElementById("form_poids").value=poids;
+            document.getElementById("form_stock").value=stock;
+        }
+        </script>
+    <h1>Liste des articles</h1>
     <table class="table">
         <tr>
             <th>Nom de l'article </th>
-            <th>
-                <a class="btn btn-default " href="{{ url('expeditor_manager_articles_list') }}"><span class="glyphicon glyphicon-plus"></span></a>
-            </th>
+            <th>Poids (en grammes)</th>
+            <th>Stock de l'article</th>
         </tr>
     {% for article in articles %}
         <tr >
-            <td>{{ article.nom }} </td>
-            <td>
-                <a class="btn btn-default " href="{{ url('expeditor_manager_articles_list', {'nom': article.nom }) }}"><span class="glyphicon glyphicon-pencil"></span></a>
-            </td>
-    {% endfor %}
-            <th>Poids </th>
-            <th>
-                <a class="btn btn-default " href="{{ url('expeditor_manager_articles_list') }}"><span class="glyphicon glyphicon-plus"></span></a>
-            </th>
-        </tr>
-    {% for article in articles %}
-        <tr >
-            <td>{{ article.poids}} </td>
-            <td>
-                <a class="btn btn-default " href="{{ url('expeditor_manager_articles_list', {'nom': article.nom }) }}"><span class="glyphicon glyphicon-pencil"></span></a>
-            </td>
+            <td onclick="loadForm({{ article.id }},'{{ article.nom }}',{{ article.poids }},{{ article.stock }});" >{{ article.nom }} </td>            
+            <td>{{ article.poids }} </td>
+            <td>{{ article.stock }} </td>
         </tr>
     {% endfor %}
+    <td><form action="{{ url('expeditor_manager_articles_add') }}" ><input type="submit" value="Ajouter un article" ></form></td>
     </ul>
-    
+
+{{ form(form) }}
+
     {% endblock %}
