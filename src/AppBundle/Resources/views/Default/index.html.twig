@@ -3,3 +3,18 @@ Page en attente de création Default<br>
 <a href="{{ url('expeditor_employe') }}">Page Employe</a><br>
 <a href="{{ url('expeditor_manager') }}">Page Manager</a><br>
 <a href="{{ url('expeditor_manager_articles') }}">Page Articles</a>
+
+
+<hr >
+
+
+{% if is_granted('ROLE_SUPER_ADMIN') %}
+    Super Administrator {{ app.user.username }}
+{% elseif is_granted('ROLE_ADMIN') %}
+    Administrator {{ app.user.username }}
+{% elseif is_granted('ROLE_USER') %}
+    User {{ app.user.username }}
+
+{% else %}
+    Anonymous
+{% endif %}

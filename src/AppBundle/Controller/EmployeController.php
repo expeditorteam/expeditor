@@ -162,31 +162,16 @@ public function listeAction() {
     }
     
     public function roleAction(){
-        // Dans un contrôleur :
 
         // Pour récupérer le service UserManager du bundle
         $userManager = $this->get('fos_user.user_manager');
-
-        // Pour charger un utilisateur
-        $user = $userManager->findUserBy(array('username' => 'toto'));
-        $user2 = $userManager->findUserBy(array('username' => 'zee'));
-
-        // Pour changer le role
-        $roleEmploye = array('ROLE_ADMIN');
-        $roleManager = array('ROLE_SUPER_ADMIN');
-
-        $user->setRoles($roleEmploye);
-        $user2->setRoles($roleManager);
+        $user=$userManager->findUserByUsername('zee');
+        $user->setRoles(array('ROLE_SUPER_ADMIN'));
+        $userManager->updateUser($user);
+        $user=$userManager->findUserByUsername('toto');
+        $user->setRoles(array('ROLE_ADMIN'));
+        $userManager->updateUser($user);
         
-//
-//        // Pour modifier un utilisateur
-//        $user->setEmail('cetemail@nexiste.pas');
-//        $userManager->updateUser($user); // Pas besoin de faire un flush avec l'EntityManager, cette méthode le fait toute seule !
-//
-//        // Pour supprimer un utilisateur
-//        $userManager->deleteUser($user);
-//
-//        // Pour récupérer la liste de tous les utilisateurs
-//        $users = $userManager->findUsers();
+        return $this->render('AppBundle:Default:index.html.twig',['user'=>$user]);
     }
 }
