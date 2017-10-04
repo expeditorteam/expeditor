@@ -166,9 +166,15 @@ public function listeAction() {
         // Pour récupérer le service UserManager du bundle
         $userManager = $this->get('fos_user.user_manager');
         $user=$userManager->findUserByUsername('zee');
+        if(is_null($user)){
+            $user=$this->get('fos_user.util.user_manipulator')->create('zee', 'zee', 'zee@example.com', 1, 0);
+        }
         $user->setRoles(array('ROLE_SUPER_ADMIN'));
         $userManager->updateUser($user);
         $user2=$userManager->findUserByUsername('toto');
+        if(is_null($user2)){
+            $user2=$this->get('fos_user.util.user_manipulator')->create('toto', 'toto', 'toto@example.com', 1, 0);
+        }
         $user2->setRoles(array('ROLE_ADMIN'));
         $userManager->updateUser($user2);
         
