@@ -1,10 +1,7 @@
+{% extends "AppBundle::base.html.twig" %}
+{% block title %} : Accueil par défaut{% endblock %}
+{% block body %}
 Page en attente de création Default<br>
-
-<a href="{{ url('expeditor_employe') }}">Page Employe</a><br>
-<a href="{{ url('expeditor_manager') }}">Page Manager</a><br>
-
-
-
 <hr >
 
 
@@ -18,3 +15,5 @@ Page en attente de création Default<br>
 {% else %}
     Anonymous
 {% endif %}
+
+{% endblock %}

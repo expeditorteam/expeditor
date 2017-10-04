@@ -23,6 +23,13 @@ class Commande {
     protected $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="numero", type="string", length=255, nullable=false)
+     */
+    protected $numero;
+    
+    /**
      * @var date
      *
      * @ORM\Column(name="dateDeCommande", type="datetime", nullable=false)
@@ -30,7 +37,7 @@ class Commande {
     protected $dateDeCommande;
 
     /**
-     * @var date
+     * @var \DateTime
      *
      * @ORM\Column(name="dateExpedition", type="datetime")
      */
@@ -47,23 +54,17 @@ class Commande {
     protected $client;
 
     /**
-     * @var \Article
+     * @var Collection
      *
-     * @ORM\ManyToMany(targetEntity="Article")
-     * @ORM\JoinTable(name="commande_has_article",
-     *      joinColumns={@ORM\JoinColumn(name="commande_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id")}
+     * @ORM\OneToMany(targetEntity="CommandeLigne", mappedBy="group")
      * )
      */
-    protected $articles;
+    protected $commandeLignes;
 
         /**
      * @var \Employe
      *
-     * @ORM\ManyToMany(targetEntity="Employe")
-     * @ORM\JoinTable(name="commande_has_employe",
-     *      joinColumns={@ORM\JoinColumn(name="commande_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="employe_id", referencedColumnName="id")}
+     * @ORM\OneToOne(targetEntity="Employe")
      * )
      */
     protected $employe;
@@ -78,7 +79,14 @@ class Commande {
     function getId() {
         return $this->id;
     }
+    function getNumero() {
+        return $this->numero;
+    }
 
+    function setNumero($numero) {
+        $this->numero = $numero;
+    }
+        
     function getDateDeCommande() {
         return $this->dateDeCommande;
     }
@@ -119,18 +127,19 @@ class Commande {
         $this->client = $client;
     }
 
-    function setArticles(\Articles $articles) {
+    function setArticles($articles) {
         $this->articles = $articles;
     }
 
-    function setEmploye(\Employe $employe) {
+    function setEmploye($employe) {
         $this->employe = $employe;
     }
 
     function setStatut($statut) {
         $this->statut = $statut;
     }
-    function __construct(date $dateDeCommande, \Client $client, \Article $articles, string $statut) {
+    function __construct($numero, date $dateDeCommande, $client, $articles, $statut) {
+        $this->numero = $numero;
         $this->dateDeCommande = $dateDeCommande;
         $this->client = $client;
         $this->articles = $articles;

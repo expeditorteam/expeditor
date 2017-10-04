@@ -58,5 +58,9 @@ class Client {
     function setAdresse($adresse) {
         $this->adresse = $adresse;
     }
+    function __construct($nom, $adresse) {
+        $this->nom = $nom;
+        $this->adresse = $adresse;
+    }
 
 }
