@@ -1,5 +1,5 @@
-#fos_user:
-#    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 expeditor_homepage:
     path:     /
     defaults: { _controller: AppBundle:Default:index }
