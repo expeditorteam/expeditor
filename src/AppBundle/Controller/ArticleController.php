@@ -6,35 +6,34 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class ArticleController extends Controller
-{
+class ArticleController extends Controller {
+
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         // replace this example code with whatever you need
         return $this->render('AppBundle::Article/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+                    'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
         ]);
     }
-/*
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
-{
-    public function indexAction()
-    {
+    /*
+      use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+      class DefaultController extends Controller
+      {
+      public function indexAction()
+      {
       //  return $this->render('ExpeditorBundle:Default:index.html.twig');
-    }*/
+      } */
 
+    public function listeAction() {
 
-public function listeAction() {
-
-        // rÃ©cupÃ©ration de l'entity manager Ã  partir du service Doctrine
+        // récupération de l'entity manager à partir du service Doctrine
         $em = $this->getDoctrine()->getManager();
 
-        // rÃ©cupÃ©ration du repository de Article:
+        // récupération du repository de Article:
         $repo = $em->getRepository('AppBundle:Article');
 
         $articles = $repo->findAll();
@@ -74,9 +73,9 @@ public function listeAction() {
             $em->flush();
         }
 
-        // intÃ©gration de bootstrap avec la modification du fichier config.yml : 
+        // intégration de bootstrap avec la modification du fichier config.yml : 
         // form_themes: ['bootstrap_3_layout.html.twig']
-        
+
         return $this->render('AppBundle:Article:add.html.twig', ['form' => $form->createView()]);
     }
 
@@ -92,7 +91,7 @@ public function listeAction() {
         $em = $this->getDoctrine()->getManager();
 
         $repository = $em->getRepository('AppBundle:Article');
-        // rÃ©cupÃ©ration d'une instance de classe article
+        // récupération d'une instance de classe article
         $article = $repository->find($id);
 
         $form = $this->createFormBuilder($article)
@@ -109,7 +108,7 @@ public function listeAction() {
         dump($article);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Sauvegarde de l'employÃ© si le formulaire est valide
+            // Sauvegarde de l'employé si le formulaire est valide
             $em->persist($article);
 
             $em->flush();
@@ -122,13 +121,13 @@ public function listeAction() {
 
         $em = $this->getDoctrine()->getManager();
 
-        // $article est demandÃ© en parametre du contrÃ´leur Ã  la place de la variable 
-        // $id demandÃ©e dans la route du fait que $id soit la PK
+        // $article est demandé en parametre du contrôleur à la place de la variable 
+        // $id demandée dans la route du fait que $id soit la PK
         if ($article == null) {
             $article = new Article();
         }
-        
-        // CrÃ©ation de la classe formBuilder, ajout des champs (attributs de l'objet liÃ© au formulaire), 
+
+        // Création de la classe formBuilder, ajout des champs (attributs de l'objet lié au formulaire), 
         // et retour d'une instance d'une classe Form Symfony
         $form = $this->createFormBuilder($article)
                 ->add('nom')

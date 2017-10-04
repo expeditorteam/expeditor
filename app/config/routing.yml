@@ -5,13 +5,22 @@ expeditor_homepage:
     defaults: { _controller: AppBundle:Default:index }
 expeditor_employe:
     path:     /employe
-    defaults: { _controller: AppBundle:Employe:index }
+    defaults: { _controller: AppBundle:Employe:index }    
 expeditor_manager:
     path:     /manager
-    defaults: { _controller: AppBundle:Manager:index }
-expeditor_manager_articles:
+    defaults: { _controller: AppBundle:Manager:index } 
+expeditor_manager_articles_list:
     path:     /manager/articles
     defaults: { _controller: AppBundle:Article:liste }
+expeditor_manager_articles_add:
+    path:     /manager/articles/add
+    defaults: { _controller: AppBundle:Article:add }  
+expeditor_manager_articles_update:
+    path:     /manager/articles/update
+    defaults: { _controller: AppBundle:Article:delete }   
+expeditor_manager_articles_delete:
+    path:     /manager/articles/delete
+    defaults: { _controller: AppBundle:Article:delete }  
 expeditor_role:
     path:     /role
     defaults: { _controller: AppBundle:Employe:role }

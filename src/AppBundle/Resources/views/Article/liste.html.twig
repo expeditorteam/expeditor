@@ -5,14 +5,26 @@
         <tr>
             <th>Nom de l'article </th>
             <th>
-                <a class="btn btn-default " href="{{ url('expeditor_employe_edit') }}"><span class="glyphicon glyphicon-plus"></span></a>
+                <a class="btn btn-default " href="{{ url('expeditor_manager_articles_list') }}"><span class="glyphicon glyphicon-plus"></span></a>
             </th>
         </tr>
     {% for article in articles %}
         <tr >
             <td>{{ article.nom }} </td>
             <td>
-                <a class="btn btn-default " href="{{ url('expeditor_employe_edit', {'nom': article.nom }) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="btn btn-default " href="{{ url('expeditor_manager_articles_list', {'nom': article.nom }) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+            </td>
+    {% endfor %}
+            <th>Poids </th>
+            <th>
+                <a class="btn btn-default " href="{{ url('expeditor_manager_articles_list') }}"><span class="glyphicon glyphicon-plus"></span></a>
+            </th>
+        </tr>
+    {% for article in articles %}
+        <tr >
+            <td>{{ article.poids}} </td>
+            <td>
+                <a class="btn btn-default " href="{{ url('expeditor_manager_articles_list', {'nom': article.nom }) }}"><span class="glyphicon glyphicon-pencil"></span></a>
             </td>
         </tr>
     {% endfor %}
