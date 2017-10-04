@@ -31,10 +31,10 @@ class DefaultController extends Controller
 
 public function listeAction() {
 
-        // rÃ©cupÃ©ration de l'entity manager Ã  partir du service Doctrine
+        // récupération de l'entity manager à partir du service Doctrine
         $em = $this->getDoctrine()->getManager();
 
-        // rÃ©cupÃ©ration du repository de livre:
+        // récupération du repository de livre:
         $repo = $em->getRepository('AppBundle:Employe');
 
         $livres = $repo->findAll();
@@ -69,13 +69,13 @@ public function listeAction() {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Sauvegarde de l'employÃ© si le formulaire est valide
+            // Sauvegarde de l'employé si le formulaire est valide
             $em->persist($employe);
 
             $em->flush();
         }
 
-        // intÃ©gration de bootstrap avec la modification du fichier config.yml : 
+        // intégration de bootstrap avec la modification du fichier config.yml : 
         // form_themes: ['bootstrap_3_layout.html.twig']
         
         return $this->render('AppBundle:Employe:add.html.twig', ['form' => $form->createView()]);
@@ -93,7 +93,7 @@ public function listeAction() {
         $em = $this->getDoctrine()->getManager();
 
         $repository = $em->getRepository('AppBundle:Employe');
-        // rÃ©cupÃ©ration d'une instance de classe employe
+        // récupération d'une instance de classe employe
         $employe = $repository->find($id);
 
         $form = $this->createFormBuilder($employe)
@@ -111,7 +111,7 @@ public function listeAction() {
         dump($employe);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Sauvegarde de l'employÃ© si le formulaire est valide
+            // Sauvegarde de l'employé si le formulaire est valide
             $em->persist($employe);
 
             $em->flush();
@@ -124,13 +124,13 @@ public function listeAction() {
 
         $em = $this->getDoctrine()->getManager();
 
-        // $livre est demandÃ© en parametre du contrÃ´leur Ã  la place de la variable 
-        // $id demandÃ©e dans la route du fait que $id soit la PK
+        // $livre est demandé en parametre du contrôleur à la place de la variable 
+        // $id demandée dans la route du fait que $id soit la PK
         if ($employe == null) {
             $employe = new Employe();
         }
         
-        // CrÃ©ation de la classe formBuilder, ajout des champs (attributs de l'objet liÃ© au formulaire), 
+        // Création de la classe formBuilder, ajout des champs (attributs de l'objet lié au formulaire), 
         // et retour d'une instance d'une classe Form Symfony
         $form = $this->createFormBuilder($employe)
                 ->add('nom')
@@ -163,14 +163,14 @@ public function listeAction() {
     
     public function roleAction(){
 
-        // Pour rÃ©cupÃ©rer le service UserManager du bundle
+        // Pour récupérer le service UserManager du bundle
         $userManager = $this->get('fos_user.user_manager');
         $user=$userManager->findUserByUsername('zee');
         $user->setRoles(array('ROLE_SUPER_ADMIN'));
         $userManager->updateUser($user);
-        $user=$userManager->findUserByUsername('toto');
-        $user->setRoles(array('ROLE_ADMIN'));
-        $userManager->updateUser($user);
+        $user2=$userManager->findUserByUsername('toto');
+        $user2->setRoles(array('ROLE_ADMIN'));
+        $userManager->updateUser($user2);
         
         return $this->render('AppBundle:Default:index.html.twig',['user'=>$user]);
     }
