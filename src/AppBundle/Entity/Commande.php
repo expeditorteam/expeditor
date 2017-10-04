@@ -130,5 +130,11 @@ class Commande {
     function setStatut($statut) {
         $this->statut = $statut;
     }
+    function __construct(date $dateDeCommande, \Client $client, \Article $articles, string $statut) {
+        $this->dateDeCommande = $dateDeCommande;
+        $this->client = $client;
+        $this->articles = $articles;
+        $this->statut = $statut;
+    }
 
 }

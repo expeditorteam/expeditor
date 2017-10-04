@@ -24,7 +24,9 @@ expeditor_manager_articles_delete:
 expeditor_role:
     path:     /role
     defaults: { _controller: AppBundle:Employe:role }
-
+expeditor_bouchon:
+    path:     /bouchon
+    defaults: { _controller: AppBundle:Bouchon:index }
 app:
     resource: '@AppBundle/Controller/'
     type: annotation

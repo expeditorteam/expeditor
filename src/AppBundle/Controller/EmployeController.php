@@ -6,30 +6,29 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class EmployeController extends Controller
-{
+class EmployeController extends Controller {
+
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         // replace this example code with whatever you need
         return $this->render('AppBundle::Employe/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+                    'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
         ]);
     }
-/*
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
-{
-    public function indexAction()
-    {
+    /*
+      use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+      class DefaultController extends Controller
+      {
+      public function indexAction()
+      {
       //  return $this->render('ExpeditorBundle:Default:index.html.twig');
-    }*/
+      } */
 
-
-public function listeAction() {
+    public function listeAction() {
 
         // récupération de l'entity manager à partir du service Doctrine
         $em = $this->getDoctrine()->getManager();
@@ -77,7 +76,7 @@ public function listeAction() {
 
         // intégration de bootstrap avec la modification du fichier config.yml : 
         // form_themes: ['bootstrap_3_layout.html.twig']
-        
+
         return $this->render('AppBundle:Employe:add.html.twig', ['form' => $form->createView()]);
     }
 
@@ -129,7 +128,7 @@ public function listeAction() {
         if ($employe == null) {
             $employe = new Employe();
         }
-        
+
         // Création de la classe formBuilder, ajout des champs (attributs de l'objet lié au formulaire), 
         // et retour d'une instance d'une classe Form Symfony
         $form = $this->createFormBuilder($employe)
@@ -157,27 +156,26 @@ public function listeAction() {
         }
 
         return $this->render('AppBundle:Employe:add.html.twig', ['form' => $form->createView()]);
-        
-        
     }
-    
-    public function roleAction(){
+
+    public function roleAction() {
 
         // Pour récupérer le service UserManager du bundle
         $userManager = $this->get('fos_user.user_manager');
-        $user=$userManager->findUserByUsername('zee');
-        if(is_null($user)){
-            $user=$this->get('fos_user.util.user_manipulator')->create('zee', 'zee', 'zee@example.com', 1, 0);
+        $user = $userManager->findUserByUsername('zee');
+        if (is_null($user)) {
+            $user = $this->get('fos_user.util.user_manipulator')->create('zee', 'zee', 'zee@example.com', 1, 0);
         }
         $user->setRoles(array('ROLE_SUPER_ADMIN'));
         $userManager->updateUser($user);
-        $user2=$userManager->findUserByUsername('toto');
-        if(is_null($user2)){
-            $user2=$this->get('fos_user.util.user_manipulator')->create('toto', 'toto', 'toto@example.com', 1, 0);
+        $user2 = $userManager->findUserByUsername('toto');
+        if (is_null($user2)) {
+            $user2 = $this->get('fos_user.util.user_manipulator')->create('toto', 'toto', 'toto@example.com', 1, 0);
         }
         $user2->setRoles(array('ROLE_ADMIN'));
         $userManager->updateUser($user2);
-        
-        return $this->render('AppBundle:Default:index.html.twig',['user'=>$user]);
+
+        return $this->render('AppBundle:Default:index.html.twig', ['user' => $user]);
     }
+
 }

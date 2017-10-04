@@ -74,5 +74,10 @@ class Article {
     function setPoids($poids) {
         $this->poids = $poids;
     }
+    function __construct($nom, $stock, $poids) {
+        $this->nom = $nom;
+        $this->stock = $stock;
+        $this->poids = $poids;
+    }
 
 }
