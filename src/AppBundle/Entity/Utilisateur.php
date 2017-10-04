@@ -26,14 +26,14 @@ class Utilisateur extends BaseUser {
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
+     * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
      */
     protected $prenom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      */
     protected $nom;
 

@@ -175,8 +175,8 @@ public function listeAction() {
         $roleEmploye = array('ROLE_ADMIN');
         $roleManager = array('ROLE_SUPER_ADMIN');
 
-        $user->setRole($roleEmploye);
-        $user2->setRole($roleManager);
+        $user->setRoles($roleEmploye);
+        $user2->setRoles($roleManager);
         
 //
 //        // Pour modifier un utilisateur
