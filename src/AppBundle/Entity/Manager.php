@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="managers")
  * @ORM\Entity
  */
-class Manager extends \ExpeditorBundle\Entity\Utilisateur {
+class Manager extends \AppBundle\Entity\Utilisateur {
 
 
 }

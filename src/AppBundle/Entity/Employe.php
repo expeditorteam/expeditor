@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="employes")
  * @ORM\Entity
  */
-class Employe extends \ExpeditorBundle\Entity\Utilisateur {
+class Employe extends \AppBundle\Entity\Utilisateur {
 
     /**
      * @var \Commande
@@ -22,7 +22,7 @@ class Employe extends \ExpeditorBundle\Entity\Utilisateur {
      *      inverseJoinColumns={@ORM\JoinColumn(name="commande_id", referencedColumnName="id")}
      * )
      */
-    private $Commandes;
+    protected $Commandes;
 
     function getCommandes() {
         return $this->Commandes;

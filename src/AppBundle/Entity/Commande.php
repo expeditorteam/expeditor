@@ -20,21 +20,21 @@ class Commande {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var date
      *
      * @ORM\Column(name="dateDeCommande", type="datetime", nullable=false)
      */
-    private $dateDeCommande;
+    protected $dateDeCommande;
 
     /**
      * @var date
      *
      * @ORM\Column(name="dateExpedition", type="datetime")
      */
-    private $dateExpedition;
+    protected $dateExpedition;
 
     /**
      * @var \Client
@@ -44,7 +44,7 @@ class Commande {
      *   @ORM\JoinColumn(name="id_client", referencedColumnName="id")
      * })
      */
-    private $client;
+    protected $client;
 
     /**
      * @var \Article
@@ -55,7 +55,7 @@ class Commande {
      *      inverseJoinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id")}
      * )
      */
-    private $articles;
+    protected $articles;
 
         /**
      * @var \Employe
@@ -66,14 +66,14 @@ class Commande {
      *      inverseJoinColumns={@ORM\JoinColumn(name="employe_id", referencedColumnName="id")}
      * )
      */
-    private $employe;
+    protected $employe;
 
     /**
      * @var string
      *
      * @ORM\Column(name="statut", type="string", length=255, nullable=false)
      */
-    private $statut;
+    protected $statut;
 
     function getId() {
         return $this->id;
