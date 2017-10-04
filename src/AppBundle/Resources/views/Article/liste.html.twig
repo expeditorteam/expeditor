@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    
+    <table class="table">
+        <tr>
+            <th>Nom de l'article </th>
+            <th>
+                <a class="btn btn-default " href="{{ url('expeditor_employe_edit') }}"><span class="glyphicon glyphicon-plus"></span></a>
+            </th>
+        </tr>
+    {% for article in articles %}
+        <tr >
+            <td>{{ article.nom }} </td>
+            <td>
+                <a class="btn btn-default " href="{{ url('expeditor_employe_edit', {'nom': article.nom }) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </ul>
+    
+    {% endblock %}
