@@ -16,14 +16,15 @@
             <th>Stock de l'article</th>
         </tr>
     {% for article in articles %}
-        <tr >
-            <td onclick="loadForm({{ article.id }},'{{ article.nom }}',{{ article.poids }},{{ article.stock }});" >{{ article.nom }} </td>            
+        <tr onclick="loadForm({{ article.id }},'{{ article.nom }}',{{ article.poids }},{{ article.stock }});" >
+            <td >{{ article.nom }} </td>            
             <td>{{ article.poids }} </td>
             <td>{{ article.stock }} </td>
+            <td><a href="{{ url('expeditor_manager_articles_list') }}?delete={{ article.id }}">Supprimer</a></td>
         </tr>
     {% endfor %}
-    <td><form action="{{ url('expeditor_manager_articles_add') }}" ><input type="submit" value="Ajouter un article" ></form></td>
-    </ul>
+  
+    </table>
 
 {{ form(form) }}
 

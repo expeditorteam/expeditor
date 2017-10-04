@@ -21,23 +21,34 @@ class ArticleController extends Controller {
         ]);
     }
 
-    /*
-      use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-      class DefaultController extends Controller
-      {
-      public function indexAction()
-      {
-      //  return $this->render('ExpeditorBundle:Default:index.html.twig');
-      } */
-
     public function listeAction(Request $request) {
-        
-       // $form="ok";
+
+        // $request = $this->getRequest();
 
         $em = $this->getDoctrine()->getManager();
-// 
+        $repo = $em->getRepository('AppBundle:Article');
+        $id = $request->query->get('delete');
+
+
+        if ($id != null) {
+            try {
+                $articleAsupprimer = $repo->findById($id);
+                if ($articleAsupprimer != null) {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->remove($articleAsupprimer[0]);
+                    $em->flush();
+                }
+                return $this->redirectToRoute('expeditor_manager_articles_list');
+            } catch (\Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException $e) {
+                return new \Symfony\Component\HttpFoundation\Response('Erreur');
+            }
+        }
+
+        $logger = $this->get('logger');
+
+
         $article = new Article();
+
         $form = $this->createFormBuilder($article)
                 ->add('id', HiddenType::class)
                 ->add('nom')
@@ -52,24 +63,52 @@ class ArticleController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Sauvegarde de l'article si le formulaire est valide
-            $em->persist($article);
+            $logger->err('id: ' + $article->getId());
 
-            $em->flush();
+            // si pas d'id, pas d'article en BDD 
+            if ($article->getId() == null) {
+                $em->persist($article);
+                $em->flush();
+
+                //donc on vide formulaire pour ajouter article avec New id
+                unset($article);
+                unset($form);
+
+                $article = new Article();
+                $form = $this->createFormBuilder($article)
+                        ->add('id', HiddenType::class)
+                        ->add('nom')
+                        ->add('stock')
+                        ->add('poids')
+                        ->add('enregistrer', SubmitType::class)
+                        ->getForm();
+            } else {
+
+                $logger->err('pas null: ');
+
+                $em->merge($article);
+                $em->flush();
+
+                unset($article);
+                unset($form);
+
+                $article = new Article();
+                $form = $this->createFormBuilder($article)
+                        ->add('id', HiddenType::class)
+                        ->add('nom')
+                        ->add('stock')
+                        ->add('poids')
+                        ->add('enregistrer', SubmitType::class)
+                        ->getForm();
+            }
         }
+        echo("\n");
 
+        // récupération du repository de Article:
+        $repositoryArticle = $em->getRepository('AppBundle:Article');
+        $articles = $repositoryArticle->findAll();
 
-        
-        
-        // rÃ©cupÃ©ration de l'entity manager Ã  partir du service Doctrine
-        //$em = $this->getDoctrine()->getManager();
-
-        // rÃ©cupÃ©ration du repository de Article:
-        $repo = $em->getRepository('AppBundle:Article');
-
-        $articles = $repo->findAll();
-
-        return $this->render('AppBundle:Article:liste.html.twig', ['articles' => $articles,'form' => $form->createView()]
+        return $this->render('AppBundle:Article:liste.html.twig', ['articles' => $articles, 'form' => $form->createView()]
         );
     }
 
@@ -119,6 +158,7 @@ class ArticleController extends Controller {
     public function updateAction(Request $request, $id) {
 
         $em = $this->getDoctrine()->getManager();
+        $id = document . getElementById('riri') . onclick;
 
         $repository = $em->getRepository('AppBundle:Article');
         // rÃ©cupÃ©ration d'une instance de classe article
@@ -145,6 +185,10 @@ class ArticleController extends Controller {
         }
 
         return $this->render('AppBundle:Article:add.html.twig', ['form' => $form->createView()]);
+    }
+
+    public function deleteAction(Article $article) {
+        
     }
 
     public function editAction(Request $request, Article $article = null) {
@@ -183,6 +227,17 @@ class ArticleController extends Controller {
         }
 
         return $this->render('AppBundle:Article:add.html.twig', ['form' => $form->createView()]);
+    }
+
+    public function viderformAction() {
+        $article = new Article();
+        $form = $this->createFormBuilder($article)
+                ->add('id', HiddenType::class)
+                ->add('nom')
+                ->add('stock')
+                ->add('poids')
+                ->add('enregistrer', SubmitType::class)
+                ->getForm();
     }
 
 }
