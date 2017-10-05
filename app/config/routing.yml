@@ -32,7 +32,7 @@ expeditor_bouchon:
     defaults: { _controller: AppBundle:Bouchon:index }
 expeditor_manager_import_commandes:
     path:     /bouchon
-    defaults: { _controller: AppBundle:Bouchon:index }
+    defaults: { _controller: AppBundle:Import:index }
 app:
     resource: '@AppBundle/Controller/'
     type: annotation

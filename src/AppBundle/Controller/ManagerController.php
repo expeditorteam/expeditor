@@ -29,7 +29,7 @@ class ManagerController extends Controller {
             
             $em = $this->getDoctrine()->getManager()->getConnection();
 
-            $query="SELECT count(*) FROM commandes WHERE employe_id=:id AND CAST(dateExpedition AS DATE) LIKE CAST(NOW() AS DATE)";
+            $query="SELECT count(*) FROM commandes WHERE id_employe=:id AND CAST(dateExpedition AS DATE) LIKE CAST(NOW() AS DATE)";
             $stmt = $em->prepare($query); 
             $stmt->bindValue("id", $employe->getId());
             $stmt->execute();

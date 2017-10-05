@@ -69,10 +69,39 @@ class BouchonController extends Controller {
         $userManager->updateUser($user);
         $user2 = $userManager->findUserByUsername('toto');
         if (is_null($user2)) {
-            $user2 = $this->get('fos_user.util.user_manipulator')->create('toto', 'toto', 'toto@example.com', 1, 0);
+            $user2 = $this->get('fos_user.util.user_manipulator')->create('toto', 'toto', 'toto5@example.com', 1, 0);
         }
         $user2->setRoles(array('ROLE_ADMIN'));
         $userManager->updateUser($user2);
+        
+                $user2 = $userManager->findUserByUsername('Jack');
+        if (is_null($user2)) {
+            $user2 = $this->get('fos_user.util.user_manipulator')->create('Jack', 'Jack', 'toto4@example.com', 1, 0);
+        }
+        $user2->setRoles(array('ROLE_ADMIN'));
+        $userManager->updateUser($user2);
+        
+                $user2 = $userManager->findUserByUsername('Bob');
+        if (is_null($user2)) {
+            $user2 = $this->get('fos_user.util.user_manipulator')->create('Bob', 'Bob', 'toto3@example.com', 1, 0);
+        }
+        $user2->setRoles(array('ROLE_ADMIN'));
+        $userManager->updateUser($user2);
+        
+                $user2 = $userManager->findUserByUsername('Eric');
+        if (is_null($user2)) {
+            $user2 = $this->get('fos_user.util.user_manipulator')->create('Eric', 'Eric', 'toto2@example.com', 1, 0);
+        }
+        $user2->setRoles(array('ROLE_ADMIN'));
+        $userManager->updateUser($user2);
+        
+                $user2 = $userManager->findUserByUsername('Jean');
+        if (is_null($user2)) {
+            $user2 = $this->get('fos_user.util.user_manipulator')->create('Jean', 'Jean', 'toto1@example.com', 1, 0);
+        }
+        $user2->setRoles(array('ROLE_ADMIN'));
+        $userManager->updateUser($user2);
+        
         
             
         // Création des commandes :
