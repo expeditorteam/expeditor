@@ -36,10 +36,6 @@ class ManagerController extends Controller {
             $commandesEmploye = $stmt->fetchColumn(0);
             
             $listeNbCommande[] =$commandesEmploye ;
-                    foreach ($listeNbCommande as $commandesEmploye){
-                    echo $commandesEmploye;
-
-        }
             dump($commandesEmploye);
         }
         
