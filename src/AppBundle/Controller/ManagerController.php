@@ -142,7 +142,7 @@ class DefaultController extends Controller
 
         return $this->render('AppBundle:Manager:add.html.twig', ['form' => $form->createView()]);
     }
-    
+    /*
     public function getNbCommandeEmployeAction(DateTime $date, String $employe){
             return $this->createQueryBuilder('m')
                 ->where("m.createdAt < ?1")
@@ -157,5 +157,5 @@ class DefaultController extends Controller
                 ->getQuery()
                 ->getResult();
         
-    }
+    }*/
 }
