@@ -1,47 +1,58 @@
 {% extends "AppBundle::base.html.twig" %}
-{% block title %} : Accueil Manager{% endblock %}
 {% block body %}
-<div class="containerCommandes">
-    <hi>Commandes à traiter</h1>
+    {% block title %} <h1> Espace Manager </h1>{% endblock %}
+    <div class="containerCommandes">
+        <h3>Commandes à traiter</h3>
 
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Date de la commande</th>
+                    <th>Nom client</th>
+                    <th>Nb art.</th>
+                    <th>Prix €</th>
+                    <th>Poids de la commande</th>
+                    <th>Employé qui s'en occupe</th>
+                    <th>statut</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+                <tr>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>john@example.com</td>
+                </tr>
+                <tr>
+                    <td>Mary</td>
+                    <td>Moe</td>
+                    <td>mary@example.com</td>
+                </tr>
+                <tr>
+                    <td>July</td>
+                    <td>Dooley</td>
+                    <td>july@example.com</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-         
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>N°</th>
-        <th>Date de la commande</th>
-        <th>Nom client</th>
-        <th>Nb art.</th>
-        <th>Prix €</th>
-        <th>Poids de la commande</th>
-        <th>Employé qui s'en occupe</th>
-        <th>statut</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-
-
-<hi>Liste des Employés et leurs performance du jour</h1>
-
+    </br>
+    <h3>Liste des Employés et leurs performance du jour</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Nombre de commandes traitées aujourd'hui</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employe in employes %}
+                <tr>
+                    <td>{{ employe.nom }} {{ employe.prenom }}</td>            
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

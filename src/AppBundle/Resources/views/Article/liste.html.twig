@@ -1,5 +1,6 @@
-{% extends "base.html.twig" %}
+{% extends "AppBundle::base.html.twig" %}
 {% block body %}
+{% block title %} <h1> Gestion des articles </h1>{% endblock %}
     <script>
         function loadForm(id,nom,poids,stock){
             document.getElementById("form_id").value=id;
@@ -8,7 +9,7 @@
             document.getElementById("form_stock").value=stock;
         }
         </script>
-    <h1>Liste des articles</h1>
+    <h3>Articles enregistrés</h3>
     <table class="table">
         <tr>
             <th>Nom de l'article </th>
@@ -25,7 +26,9 @@
     {% endfor %}
   
     </table>
-
+    <h3>Ajouter/modifier un article</h3>
+    <p>Pour modifier un article : sélectionnez-le dans la liste ci-dessus, modifiez les champs suivants et cliquer sur enregistrer.</p>
+    <p>Pour ajouter un article : cliquez sur ajouter, renseignez les champs suivants et enregistrez.</p>
 {{ form(form) }}
 
     {% endblock %}

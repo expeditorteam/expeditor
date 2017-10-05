@@ -13,10 +13,21 @@ class ManagerController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $repoEmploye = $em->getRepository('AppBundle:Employe');
+        $repoCommande = $em->getRepository('AppBundle:Commande');
+
+        $employes = $repoEmploye->findAll();
+        
+        
+        
+        $commandesEmploye1 = $repoCommande->findById();
+        //$commandesParEmploye = ;
+        
         // replace this example code with whatever you need
-        return $this->render('AppBundle::Manager/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        return $this->render('AppBundle::Manager/index.html.twig',['employes' => $employes]
+        );
     }
         /**
      * @Route("/", name="homepage")
@@ -94,45 +105,6 @@ class DefaultController extends Controller
         return $this->render('AppBundle:Manager:add.html.twig', ['form' => $form->createView()]);
     }
 
-    /**
-     * 
-     * @param Request $request
-     * @param type $id
-     * @return type
-     * @deprecated since 21/06/2017
-     */
-    public function updateAction(Request $request, $id) {
-
-        $em = $this->getDoctrine()->getManager();
-
-        $repository = $em->getRepository('AppBundle:Manager');
-        // récupération d'une instance de classe manager
-        $manager = $repository->find($id);
-
-        $form = $this->createFormBuilder($manager)
-                ->add('nom')
-                ->add('prenom')
-                ->add('email')
-                ->add('password')
-                ->add('enregistrer', SubmitType::class)
-                ->getForm();
-
-        // Valorisation des attributs de l'objet manager
-        // avec les champs du formulaire
-        $form->handleRequest($request);
-
-        dump($manager);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Sauvegarde du manager si le formulaire est valide
-            $em->persist($manager);
-
-            $em->flush();
-        }
-
-        return $this->render('EniBundle:Manager:add.html.twig', ['form' => $form->createView()]);
-    }
-
     public function editAction(Request $request, Manager $manager = null) {
 
         $em = $this->getDoctrine()->getManager();
@@ -169,5 +141,21 @@ class DefaultController extends Controller
         }
 
         return $this->render('AppBundle:Manager:add.html.twig', ['form' => $form->createView()]);
+    }
+    
+    public function getNbCommandeEmployeAction(DateTime $date, String $employe){
+            return $this->createQueryBuilder('m')
+                ->where("m.createdAt < ?1")
+                ->andWhere(
+                    new Expr\Orx([
+                        "m.deletedAt IS NULL",
+                        "m.deletedAt > ?2",
+                    ])
+                )
+                ->setParameter(1, $createdBefore)
+                ->setParameter(2, new \DateTime())
+                ->getQuery()
+                ->getResult();
+        
     }
 }

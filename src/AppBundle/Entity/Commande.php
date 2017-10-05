@@ -56,7 +56,7 @@ class Commande {
     protected $client;
 
     /**
-     * @var Collection
+     * @var \CommandeLigne
      *
      * @ORM\OneToMany(targetEntity="CommandeLigne", mappedBy="group")
      * )
