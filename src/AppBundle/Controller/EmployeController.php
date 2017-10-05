@@ -30,15 +30,15 @@ class EmployeController extends Controller {
 
     public function listeAction() {
 
-        // récupération de l'entity manager à partir du service Doctrine
+        // rï¿½cupï¿½ration de l'entity manager ï¿½ partir du service Doctrine
         $em = $this->getDoctrine()->getManager();
 
-        // récupération du repository de livre:
+        // rï¿½cupï¿½ration du repository de livre:
         $repo = $em->getRepository('AppBundle:Employe');
 
-        $livres = $repo->findAll();
+        $employes = $repo->findAll();
 
-        return $this->render('AppBundle:Employe:liste.html.twig', ['livres' => $livres]
+        return $this->render('AppBundle:Employe:liste.html.twig', ['employes' => $employes]
         );
     }
 
@@ -68,13 +68,13 @@ class EmployeController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Sauvegarde de l'employé si le formulaire est valide
+            // Sauvegarde de l'employï¿½ si le formulaire est valide
             $em->persist($employe);
 
             $em->flush();
         }
 
-        // intégration de bootstrap avec la modification du fichier config.yml : 
+        // intï¿½gration de bootstrap avec la modification du fichier config.yml : 
         // form_themes: ['bootstrap_3_layout.html.twig']
 
         return $this->render('AppBundle:Employe:add.html.twig', ['form' => $form->createView()]);
@@ -92,7 +92,7 @@ class EmployeController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $repository = $em->getRepository('AppBundle:Employe');
-        // récupération d'une instance de classe employe
+        // rï¿½cupï¿½ration d'une instance de classe employe
         $employe = $repository->find($id);
 
         $form = $this->createFormBuilder($employe)
@@ -110,7 +110,7 @@ class EmployeController extends Controller {
         dump($employe);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Sauvegarde de l'employé si le formulaire est valide
+            // Sauvegarde de l'employï¿½ si le formulaire est valide
             $em->persist($employe);
 
             $em->flush();
@@ -123,13 +123,13 @@ class EmployeController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
 
-        // $livre est demandé en parametre du contrôleur à la place de la variable 
-        // $id demandée dans la route du fait que $id soit la PK
+        // $livre est demandï¿½ en parametre du contrï¿½leur ï¿½ la place de la variable 
+        // $id demandï¿½e dans la route du fait que $id soit la PK
         if ($employe == null) {
             $employe = new Employe();
         }
 
-        // Création de la classe formBuilder, ajout des champs (attributs de l'objet lié au formulaire), 
+        // Crï¿½ation de la classe formBuilder, ajout des champs (attributs de l'objet liï¿½ au formulaire), 
         // et retour d'une instance d'une classe Form Symfony
         $form = $this->createFormBuilder($employe)
                 ->add('nom')
@@ -160,7 +160,7 @@ class EmployeController extends Controller {
 
     public function roleAction() {
 
-        // Pour récupérer le service UserManager du bundle
+        // Pour rï¿½cupï¿½rer le service UserManager du bundle
         $userManager = $this->get('fos_user.user_manager');
         $user = $userManager->findUserByUsername('zee');
         if (is_null($user)) {

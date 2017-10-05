@@ -17,10 +17,13 @@ expeditor_manager_articles_add:
     defaults: { _controller: AppBundle:Article:add }  
 expeditor_manager_articles_update:
     path:     /manager/articles/update
-    defaults: { _controller: AppBundle:Article:delete }   
+    defaults: { _controller: AppBundle:Article:update }   
 expeditor_manager_articles_delete:
     path:     /manager/articles/delete
-    defaults: { _controller: AppBundle:Article:delete }  
+    defaults: { _controller: AppBundle:Article:delete } 
+expeditor_manager_employes_list:
+    path:     /manager/articles
+    defaults: { _controller: AppBundle:Employe:liste }
 expeditor_role:
     path:     /role
     defaults: { _controller: AppBundle:Employe:role }
