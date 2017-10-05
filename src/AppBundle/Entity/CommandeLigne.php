@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use AppBundle\Entity\Article;
 /**
  * Description of CommandeLigne
  *
@@ -30,13 +30,9 @@ class CommandeLigne {
     protected $quantite;    
     
     /**
-     * @var \Article
+     * @var Article
      *
-     * @ORM\ManyToMany(targetEntity="Article")
-     * @ORM\JoinTable(name="commande_line_has_article",
-     *      joinColumns={@ORM\JoinColumn(name="commande_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id")}
-     * )
+     * @ORM\OneToOne(targetEntity="Article")
      */
     protected $articles;
 
@@ -64,7 +60,7 @@ class CommandeLigne {
         $this->quantite = $quantite;
     }
     
-    function __construct($quantite, \Article $articles) {
+    function __construct($quantite, Article $articles) {
         $this->quantite = $quantite;
         $this->articles = $articles;
     }

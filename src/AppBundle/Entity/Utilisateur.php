@@ -61,9 +61,13 @@ class Utilisateur extends BaseUser {
         $this->nom = $nom;
     }
     
-    public function __construct()
-    {
-        parent::__construct();
-        // your own logic
+    function __construct($prenom, $nom) {
+         parent::__construct($prenom);
+        $this->prenom = $prenom;
+        $this->nom = $nom;
+        $this->username=$nom;
+           $this->email=$nom+"@boite.fr";
+           $this->password="dfg";
     }
+
 }

@@ -9,6 +9,8 @@ use Psr\Log\LoggerInterface;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Client;
 use AppBundle\Entity\Commande;
+use AppBundle\Entity\CommandeLigne;
+use AppBundle\Entity\Employe;
 
 class BouchonController extends Controller {
 
@@ -17,22 +19,22 @@ class BouchonController extends Controller {
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('AppBundle:Article');
+        $repoArticle = $em->getRepository('AppBundle:Article');
         $logger = $this->get('logger');
   //$logger->err('An error occurred');
         
         // Création des Articles :
         
-        if (count($repo->findBy(array('nom' => "Carte mère")))==0) {
+        if (count($repoArticle->findBy(array('nom' => "Carte mère")))==0) {
             $this->AddArticle("Carte mère", 10000, 200);
         }
-        if (count($repo->findBy(array('nom' => "Disque")))==0) {
+        if (count($repoArticle->findBy(array('nom' => "Disque")))==0) {
             $this->AddArticle("Disque", 10000, 600);
         }
-        if (count($repo->findBy(array('nom' => "Carte graphique")))==0) {
+        if (count($repoArticle->findBy(array('nom' => "Carte graphique")))==0) {
             $this->AddArticle("Carte graphique", 10000, 300);
         }
-        if (count($repo->findBy(array('nom' => "Alimentation")))==0) {
+        if (count($repoArticle->findBy(array('nom' => "Alimentation")))==0) {
             $this->AddArticle("Alimentation", 10000, 1000);
         }
 
@@ -55,20 +57,42 @@ class BouchonController extends Controller {
             $this->AddClient("YOKO", "3 rue Droite - 11100 NARBOENNE");
         }
         
-        // Création des commandes :
+        // Création des Employés
+
+        // Pour r�cup�rer le service UserManager du bundle
+        $userManager = $this->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername('zee');
+        if (is_null($user)) {
+            $user = $this->get('fos_user.util.user_manipulator')->create('zee', 'zee', 'zee@example.com', 1, 0);
+        }
+        $user->setRoles(array('ROLE_SUPER_ADMIN'));
+        $userManager->updateUser($user);
+        $user2 = $userManager->findUserByUsername('toto');
+        if (is_null($user2)) {
+            $user2 = $this->get('fos_user.util.user_manipulator')->create('toto', 'toto', 'toto@example.com', 1, 0);
+        }
+        $user2->setRoles(array('ROLE_ADMIN'));
+        $userManager->updateUser($user2);
         
+            
+        // Création des commandes :
+  
         $repo = $em->getRepository('AppBundle:Commande');
         
         if (count($repo->findBy(array('numero' => "NC 30")))==0) {
-            
+
             $client1= new Client("NTP", "89 avenue Charles de Gaulle - 44000 NANTES");
             $this->AddCommande("NC 30",
-                    date("Y-m-d H:i:s"),
+                  new \DateTime(),
                   $client1,
-        [new Article("Alimentation", 10000, 1000)],
-                    "En Attente");
+                    "En Attente",$user2);
         }
-        
+        // Création des lignes de cette commande
+        $repo = $em->getRepository('AppBundle:CommandeLigne');        
+        if (count($repo->findBy(array('id' => "1")))==0) {
+
+            $this->AddCommandeLigne(18,$repoArticle->findBy(array('nom' => "Carte mère"))[0]);
+        }
         
         
         
@@ -76,10 +100,10 @@ class BouchonController extends Controller {
         return $this->render('AppBundle::Default/index.html.twig');
     }
 
-    private function AddArticle($nom, $stock, $poids) {
+    private function AddEmploye($prenom, $nom) {
         $em = $this->getDoctrine()->getManager();
-        $article = new Article($nom, $stock, $poids);
-        $em->persist($article);
+        $employe = new Employe($prenom, $nom);
+        $em->persist($employe);
         $em->flush();
     }
 
@@ -89,9 +113,26 @@ class BouchonController extends Controller {
         $em->persist($client);
         $em->flush();
     }
-    private function AddCommande($numero, $dateDeCommande, Client $client, Article $articles, $statut) {
+    
+    private function AddArticle($nom, $stock, $poids) {
         $em = $this->getDoctrine()->getManager();
-        $commande = new Commande($numero, $dateDeCommande, $client, $articles, $statut);
+        $article = new Article($nom, $stock, $poids);
+        $em->persist($article);
+        $em->flush();
+    }
+    
+    private function AddCommandeLigne($quantite, $articles) {
+        $em = $this->getDoctrine()->getManager();
+        $commandeLigne = new CommandeLigne($quantite, $articles);
+        $em->persist($commandeLigne);
+        $em->flush();
+    }
+    
+    private function AddCommande($numero, $dateDeCommande, Client $client, $statut,$employe=null) {
+        $em = $this->getDoctrine()->getManager();
+        $commande = new Commande($numero, $dateDeCommande, $client, $statut);
+        if($employe!=null)
+            $commande->setEmploye($employe);
         $em->persist($commande);
         $em->flush();
     }
