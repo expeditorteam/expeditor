@@ -1,13 +1,32 @@
 <ul class="nav nav-tabs" id="myTab">
-                <li {% if (app.request.requesturi == path('expeditor_employe')) or (app.request.requesturi+"/" == path('expeditor_homepage'))   %}class="active"{% endif %}
+                <li {% if (app.request.requesturi == path('expeditor_employe'))
+                         or (app.request.requesturi == path('expeditor_homepage')|slice(0,-1))
+                         or (app.request.requesturi == path('expeditor_homepage'))  %}class="active"{% endif %}
                        ><a data-toogle="tab" href="{{ url('expeditor_employe') }}">Employe</a></li>  
+                {% if is_granted("ROLE_SUPER_ADMIN") %}
                 <li {% if app.request.requesturi == path('expeditor_manager') %}class="active"{% endif %}
                        ><a data-toogle="tab" href="{{ url('expeditor_manager') }}">Manager</a></li>
                 <li {% if app.request.requesturi == path('expeditor_manager_articles_list') %}class="active"{% endif %}
                        ><a data-toogle="tab" href="{{ url('expeditor_manager_articles_list') }}">Articles</a></li>
                 <li {% if app.request.requesturi == path('expeditor_manager_import_commandes') %}class="active"{% endif %}
                        ><a data-toogle="tab" href="{{ url('expeditor_manager_import_commandes') }}">Import Commandes</a></li>
+                {% endif %}
                 <li {% if app.request.requesturi == path('expeditor_bouchon') %}class="active"{% endif %}
-                       ><a data-toogle="tab" href="{{ url('expeditor_bouchon') }}">Bouchon!</a></li>
+                       ><a data-toogle="tab" href="{{ url('expeditor_bouchon') }}">Bouchon?</a></li>
+                
+                <li >
+                    <p class="navbar-text float-right">{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    Bonjour <b>{% if is_granted("ROLE_SUPER_ADMIN") %}M.{%endif%}
+                        {{ app.user.username }}</b>                    
+                    {%endif%}
+                    </p>
+                </li>
+                <li style="float:right;">
+                    <p class="navbar-text">{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <a  href="{{ path('fos_user_security_logout') }}">Deconnexion</a>
+                    {% else %}
+                        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                    {%endif%}
+                    </p>
+                </li>
 </ul>
-{{app.request.requesturi}} {{path('expeditor_employe')}} or {{path('expeditor_homepage')}}
