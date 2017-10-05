@@ -59,15 +59,16 @@ class Commande {
      * @var \CommandeLigne
      *
      * @ORM\OneToMany(targetEntity="CommandeLigne", mappedBy="group")
-     * )
      */
     protected $commandeLignes;
 
         /**
      * @var Employe
      *
-     * @ORM\OneToOne(targetEntity="Employe")
-     * )
+     * @ORM\ManyToOne(targetEntity="Employe",cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_employe", referencedColumnName="id")
+     * })
      */
     protected $employe;
 
@@ -146,6 +147,4 @@ class Commande {
         $this->client = $client;
         $this->statut = $statut;
     }
-
-
 }

@@ -36,7 +36,16 @@ class CommandeLigne {
      */
     protected $articles;
 
-
+    /**
+     * @var Commande
+     *
+     * @ORM\ManyToOne(targetEntity="Commande",cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_commande", referencedColumnName="id")
+     * })
+     */
+    protected $commande;
+    
     function getId() {
         return $this->id;
     }

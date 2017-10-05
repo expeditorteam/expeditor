@@ -59,17 +59,6 @@ class Employe extends BaseUser {
     function setNom($nom) {
         $this->nom = $nom;
     }
-    /**
-     * @var \Commande
-     *
-     * @ORM\ManyToMany(targetEntity="Commande")
-     * @ORM\JoinTable(name="employe_has_commande",
-     *      joinColumns={@ORM\JoinColumn(name="employe_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="commande_id", referencedColumnName="id")}
-     * )
-     */
-    protected $Commandes;
-
     function getCommandes() {
         return $this->Commandes;
     }
