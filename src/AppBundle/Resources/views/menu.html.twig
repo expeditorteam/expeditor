@@ -7,4 +7,6 @@
                        ><a data-toogle="tab" href="{{ url('expeditor_manager_articles_list') }}">Articles</a></li>
                 <li {% if app.request.requesturi == path('expeditor_manager_import_commandes') %}class="active"{% endif %}
                        ><a data-toogle="tab" href="{{ url('expeditor_manager_import_commandes') }}">Import Commandes</a></li>
+                <li {% if app.request.requesturi == path('expeditor_bouchon') %}class="active"{% endif %}
+                       ><a data-toogle="tab" href="{{ url('expeditor_bouchon') }}">Bouchon!</a></li>
 </ul>

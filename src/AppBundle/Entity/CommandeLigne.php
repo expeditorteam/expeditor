@@ -32,7 +32,10 @@ class CommandeLigne {
     /**
      * @var Article
      *
-     * @ORM\OneToOne(targetEntity="Article")
+     * @ORM\ManyToOne(targetEntity="Article",cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_article", referencedColumnName="id")
+     * })
      */
     protected $articles;
 
