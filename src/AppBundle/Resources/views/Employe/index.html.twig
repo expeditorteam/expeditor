@@ -1,5 +1,49 @@
-Page en attente de création Employe<br>
 
-<a href="./employe">Page Employe</a><br>
-<a href="./manager">Page Manager</a><br>
-<a href="./manager/articles">Page Articles</a>
+{% extends "AppBundle::base.html.twig" %}
+{% block title %} : Accueil Manager{% endblock %}
+{% block body %}
+
+    <div class="containerCommandes">
+
+        <h1>Commande Client</h1>
+        <div class="panel panel-default">
+            <div class="panel-heading">Informations client</div>
+            <div class="panel-body">
+                <fieldset class="col-md-6">    	
+                    <p>Client X</p>
+                    <p>10 rue de paris 35000 Rennes</p>
+                </fieldset>				
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Désignation</th>
+                    <th>Quantité commandée</th>
+                    <th>Quantité enregistrée</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Carte graphique</td>
+                    <td>5</td>
+                    <td><input id="quantity-selector" type="number" value="0"/></td>
+                </tr>
+                <tr>
+                    <td>Alimentation</td>
+                    <td>3</td>
+                    <td><input id="quantity-selector" type="number" value="0"/></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button class="button">Imprimer bon de livraison</button>
+
+
+
+{% endblock %}
