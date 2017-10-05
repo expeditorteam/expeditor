@@ -10,3 +10,4 @@
                 <li {% if app.request.requesturi == path('expeditor_bouchon') %}class="active"{% endif %}
                        ><a data-toogle="tab" href="{{ url('expeditor_bouchon') }}">Bouchon!</a></li>
 </ul>
+{{app.request.requesturi}} {{path('expeditor_employe')}} or {{path('expeditor_homepage')}}

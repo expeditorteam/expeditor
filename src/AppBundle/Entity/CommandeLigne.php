@@ -72,9 +72,10 @@ class CommandeLigne {
         $this->quantite = $quantite;
     }
     
-    function __construct($quantite, Article $articles) {
+    function __construct($commande,$quantite, Article $articles) {
         $this->quantite = $quantite;
         $this->articles = $articles;
+        $this->commande=$commande;
     }
    
 }

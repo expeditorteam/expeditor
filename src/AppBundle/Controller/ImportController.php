@@ -5,7 +5,11 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\Query\ResultSetMapping;
+use AppBundle\Entity\Article;
+use AppBundle\Entity\Client;
+use AppBundle\Entity\Commande;
+use AppBundle\Entity\CommandeLigne;
+
 
 class ImportController extends Controller {
 
@@ -31,9 +35,52 @@ class ImportController extends Controller {
     
     
     public function AddCommandeArray($commandeArray){
+          $em = $this->getDoctrine()->getManager();
+        $repoCommande = $em->getRepository('AppBundle:Commande');
         
-        dump($commandeArray);
-       // AddCommande($numero, $commandeArray[0], $client, $statue);
+        if (count($repoCommande->findBy(array('numero' => $commandeArray["Numéro de commande"])))==0) {
+        
+        
+        
+            $repoClient = $em->getRepository('AppBundle:Client');
+            $clientRes=$repoClient->findBy(array('nom' => $commandeArray["Nom client"]));
+            if (count($clientRes)==0) {
+                $this->AddClient($commandeArray["Nom client"], $commandeArray["Adresse"]);
+                $clientRes=$repoClient->findBy(array('nom' => $commandeArray["Nom client"])); 
+            }    
+        
+            // dump($commandeArray["Date de Commande"]);
+       
+            $this->AddCommande($commandeArray["Numéro de commande"], $commandeArray["Date de Commande"], $clientRes[0], "En attente");
+        
+        $commande=$repoCommande->findBy(array('numero' => $commandeArray["Numéro de commande"]))[0];
+            
+    $repoArticle = $em->getRepository('AppBundle:Article');
+            $articlesArray=explode("; ",$commandeArray["Articles commandés (Quantité)"]);
+              dump($articlesArray);
+            foreach ($articlesArray as $articleTxt) {
+                $articleArray=explode(" (",$articleTxt);
+                dump($articleArray);
+                
+                if (count($repoArticle->findBy(array('nom' => $articleArray[0])))==0) {
+                    $this->AddArticle( $articleArray[0], 10000, 200);
+                }
+                $article=$repoArticle->findOneBy(array('nom' =>$articleArray[0]));
+                $this->AddCommandeLigneArray($commande,substr($articleArray[1],0,-1),$article);
+            }
+            
+            
+            
+            
+            //$repoArticle->findBy(array('nom' => "Carte mère"))[0]
+        }
+    }
+     public function AddCommandeLigneArray($commande,$quantite, $articles){
+           $em = $this->getDoctrine()->getManager();
+        $repoCommandeLigne = $em->getRepository('AppBundle:CommandeLigne');        
+        if (count($repoCommandeLigne->findBy(array('commande' => $commande,'articles' => $articles)))==0) {
+            $this->AddCommandeLigne($commande,$quantite, $articles);
+        }
     }
     
     
@@ -51,16 +98,16 @@ class ImportController extends Controller {
         $em->flush();
     }
     
-    private function AddCommandeLigne($quantite, $articles) {
+    private function AddCommandeLigne($commande,$quantite, $articles) {
         $em = $this->getDoctrine()->getManager();
-        $commandeLigne = new CommandeLigne($quantite, $articles);
+        $commandeLigne = new CommandeLigne($commande,$quantite, $articles);
         $em->persist($commandeLigne);
         $em->flush();
     }
     
     private function AddCommande($numero, $dateDeCommande, Client $client, $statut,$employe=null) {
         $em = $this->getDoctrine()->getManager();
-        $commande = new Commande($numero, $dateDeCommande, $client, $statut);
+        $commande = new Commande($numero, new \DateTime($dateDeCommande), $client, $statut);
         if($employe!=null)
             $commande->setEmploye($employe);
         $em->persist($commande);
@@ -75,8 +122,7 @@ class ImportController extends Controller {
         
         $header = NULL;
         $data = array();
-        dump("ok 0");
-        if (($handle = fopen($filename, 'r')) !== FALSE) {dump("ok 1");
+        if (($handle = fopen($filename, 'r')) !== FALSE) {
             while (($row = fgetcsv($handle, 1000, $delimiter)) !== FALSE) {
                 if(!$header) {
                     $header = $row;
