@@ -53,6 +53,11 @@
                     <td>{{ employe.nom }} {{ employe.prenom }}</td>            
                 </tr>
             {% endfor %}
+           {% for commandesEmploye in listeNbCommande %}
+                <tr>
+                    <td> {{ commandesEmploye }}</td>            
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 {% endblock %}
