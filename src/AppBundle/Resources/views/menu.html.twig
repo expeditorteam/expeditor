@@ -1,8 +1,10 @@
 <ul class="nav nav-tabs" id="myTab">
-                <li class="active"><a data-toogle="tab" href="{{ url('expeditor_employe') }}">Accueil</a></li>  
-                <li {% if Employe is defined %}{% endif %}><a data-toogle="tab" href="{{ url('expeditor_employe') }}">Employe</a></li>  
-                <li {% if Manager is defined %}{% endif %}
-                                                 ><a data-toogle="tab" href="{{ url('expeditor_manager') }}">Manager</a></li>
-                <li {% if Articles is defined %}{% endif %}
-                                              ><a data-toogle="tab" href="{{ url('expeditor_manager_articles_list') }}">Articles</a></li>
+                <li {% if (app.request.requesturi == path('expeditor_employe')) or (app.request.requesturi+"/" == path('expeditor_homepage'))   %}class="active"{% endif %}
+                       ><a data-toogle="tab" href="{{ url('expeditor_employe') }}">Employe</a></li>  
+                <li {% if app.request.requesturi == path('expeditor_manager') %}class="active"{% endif %}
+                       ><a data-toogle="tab" href="{{ url('expeditor_manager') }}">Manager</a></li>
+                <li {% if app.request.requesturi == path('expeditor_manager_articles_list') %}class="active"{% endif %}
+                       ><a data-toogle="tab" href="{{ url('expeditor_manager_articles_list') }}">Articles</a></li>
+                <li {% if app.request.requesturi == path('expeditor_manager_import_commandes') %}class="active"{% endif %}
+                       ><a data-toogle="tab" href="{{ url('expeditor_manager_import_commandes') }}">Import Commandes</a></li>
 </ul>
