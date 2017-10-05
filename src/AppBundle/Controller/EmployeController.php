@@ -30,15 +30,11 @@ class EmployeController extends Controller {
 
     public function listeAction() {
 
-        // r�cup�ration de l'entity manager � partir du service Doctrine
-        $em = $this->getDoctrine()->getManager();
+        
+        
+        
 
-        // r�cup�ration du repository de livre:
-        $repo = $em->getRepository('AppBundle:Employe');
-
-        $employes = $repo->findAll();
-
-        return $this->render('AppBundle:Employe:liste.html.twig', ['employes' => $employes]
+        return $this->render('AppBundle:Manager:index.html.twig', ['employes' => $employes]
         );
     }
 
