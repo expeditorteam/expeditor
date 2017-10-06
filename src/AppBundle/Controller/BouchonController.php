@@ -106,9 +106,9 @@ class BouchonController extends Controller {
             
         // Création des commandes :
   
-        $repo = $em->getRepository('AppBundle:Commande');
+        $repoCommande = $em->getRepository('AppBundle:Commande');
         
-        if (count($repo->findBy(array('numero' => "NC 30")))==0) {
+        if (count($repoCommande->findBy(array('numero' => "NC 30")))==0) {
 
             $client1= new Client("NTP", "89 avenue Charles de Gaulle - 44000 NANTES");
             $this->AddCommande("NC 30",
@@ -119,8 +119,8 @@ class BouchonController extends Controller {
         // Création des lignes de cette commande
         $repo = $em->getRepository('AppBundle:CommandeLigne');        
         if (count($repo->findBy(array('id' => "1")))==0) {
-
-            $this->AddCommandeLigne(18,$repoArticle->findBy(array('nom' => "Carte mère"))[0]);
+            $commande=$repoCommande->findOneBy(array('numero' => "NC 30"));
+            $this->AddCommandeLigne($commande,18,$repoArticle->findBy(array('nom' => "Carte mère"))[0]);
         }
         
         
@@ -150,9 +150,9 @@ class BouchonController extends Controller {
         $em->flush();
     }
     
-    private function AddCommandeLigne($quantite, $articles) {
+    private function AddCommandeLigne($commande,$quantite, $articles) {
         $em = $this->getDoctrine()->getManager();
-        $commandeLigne = new CommandeLigne($quantite, $articles);
+        $commandeLigne = new CommandeLigne($commande,$quantite, $articles);
         $em->persist($commandeLigne);
         $em->flush();
     }
