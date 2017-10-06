@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\EntityRepository;
 
 class ManagerController extends Controller {
 
@@ -21,10 +21,10 @@ class ManagerController extends Controller {
 //                ->orderBy('u.name', 'ASC');
         $em = $this->getDoctrine()->getManager();
         $repoEmploye = $em->getRepository('AppBundle:Employe');
-        //$repoCommande = $em->getRepository('AppBundle:Commande');
         $employes = $repoEmploye->findAll();
         $listeNbCommande = array();
         
+        // Pour récupérer le nombre de commandes traitées ce jour par chaque employer
         foreach ($employes as $employe) {
             
             $em = $this->getDoctrine()->getManager()->getConnection();
@@ -39,12 +39,31 @@ class ManagerController extends Controller {
             dump($commandesEmploye);
         }
         
+        // Pour récupérer les commandes à traiter
+            $em = $this->getDoctrine()->getManager();
+            $query = $em->createQuery(
+                "SELECT c
+                FROM AppBundle:Commande c
+                WHERE c.statut!='Traitée'");
+        
+            //$query='SELECT * FROM commandes WHERE statut NOT LIKE "Traitée"';
+          //  $stmt = $em->prepare($query); 
+         //   $stmt->execute();
+            $commandesAtraiter = $query->getResult();
+            
 
-        // replace this example code with whatever you need
+            
+            dump($commandesAtraiter);        
+        
+
+
+
+        // replace this example code with whatever you needs
         return $this->render('AppBundle::Manager/index.html.twig',
                 [
                     'listeNbCommande' => $listeNbCommande,
-                    'employes' => $employes
+                    'employes' => $employes,
+                    'commandesAtraiter' => $commandesAtraiter
                 ]
         );
     }
