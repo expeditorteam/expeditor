@@ -32,7 +32,10 @@ class CommandeLigne {
     /**
      * @var Article
      *
-     * @ORM\OneToOne(targetEntity="Article")
+     * @ORM\ManyToOne(targetEntity="Article",cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_article", referencedColumnName="id")
+     * })
      */
     protected $articles;
 
@@ -69,9 +72,10 @@ class CommandeLigne {
         $this->quantite = $quantite;
     }
     
-    function __construct($quantite, Article $articles) {
+    function __construct($commande,$quantite, Article $articles) {
         $this->quantite = $quantite;
         $this->articles = $articles;
+        $this->commande=$commande;
     }
    
 }
