@@ -12,10 +12,14 @@ class EmployeController extends Controller {
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request) {
-        // replace this example code with whatever you need
-        return $this->render('AppBundle::Employe/index.html.twig', [
-                    'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
-        ]);
+        $em = $this->getDoctrine()->getManager();
+        $employe = $this->getUser();
+       
+        $repoCommande = $em->getRepository('AppBundle:Commande');
+        $commande = $repoCommande->findBy(array('statut' => "En attente", 'employe' => $employe))[0];
+
+
+        return $this->render('AppBundle:Employe:index.html.twig', ['commande' => $commande]);
     }
 
     /*
@@ -30,9 +34,9 @@ class EmployeController extends Controller {
 
     public function listeAction() {
 
-        
-        
-        
+
+
+
 
         return $this->render('AppBundle:Manager:index.html.twig', ['employes' => $employes]
         );

@@ -37,7 +37,7 @@ class CommandeLigne {
      *   @ORM\JoinColumn(name="id_article", referencedColumnName="id")
      * })
      */
-    protected $articles;
+    protected $article;
 
     /**
      * @var Commande
@@ -49,12 +49,15 @@ class CommandeLigne {
      */
     protected $commande;
     
+    
+   
+      
     function getId() {
         return $this->id;
     }
     
-    function getArticles() {
-        return $this->articles;
+    function getArticle() {
+        return $this->article;
     }
 
     function setId($id) {

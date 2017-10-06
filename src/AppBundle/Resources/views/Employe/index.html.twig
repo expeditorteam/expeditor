@@ -3,6 +3,12 @@
 {% block title %} : Accueil Manager{% endblock %}
 {% block body %}
 
+
+     
+
+
+
+
     <div class="containerCommandes">
 
         <h1>Commande Client</h1>
@@ -27,17 +33,16 @@
                     <th>Quantité enregistrée</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Carte graphique</td>
-                    <td>5</td>
-                    <td><input id="quantity-selector" type="number" value="0"/></td>
-                </tr>
-                <tr>
-                    <td>Alimentation</td>
-                    <td>3</td>
-                    <td><input id="quantity-selector" type="number" value="0"/></td>
-                </tr>
+            <tbody>   
+                {% for commandeligne in commande.commandelignes %}
+                     <tr>
+                <td>{{ commandeligne.article.quantite }}</td>
+                 </tr>
+                      <tr>
+                <td>{{ commandeligne.quantite }}</td>
+                 </tr>
+        {% endfor %}
+
             </tbody>
         </table>
     </div>

@@ -58,9 +58,11 @@ class Commande {
     /**
      * @var \CommandeLigne
      *
-     * @ORM\OneToMany(targetEntity="CommandeLigne", mappedBy="group")
+     * @ORM\OneToMany(targetEntity="CommandeLigne", mappedBy="commande")
      */
     protected $commandeLignes;
+    
+ 
 
         /**
      * @var Employe
@@ -118,7 +120,7 @@ class Commande {
         return $this->commandeLignes;
     }
 
-    function setCommandeLignes(Collection $commandeLignes) {
+    function setCommandeLignes($commandeLignes) {
         $this->commandeLignes = $commandeLignes;
     }
         
