@@ -81,6 +81,7 @@ class ArticleController extends Controller {
                         ->add('nom')
                         ->add('stock')
                         ->add('poids')
+                        ->add('prix')
                         ->add('enregistrer', SubmitType::class)
                         ->getForm();
             } else {
@@ -98,7 +99,8 @@ class ArticleController extends Controller {
                         ->add('id', HiddenType::class)
                         ->add('nom')
                         ->add('stock')
-                        ->add('poids')
+                        ->add('poids')                        
+                        ->add('prix')
                         ->add('enregistrer', SubmitType::class)
                         ->getForm();
             }

@@ -12,11 +12,17 @@ class EmployeController extends Controller {
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request) {
+       
+        
         $em = $this->getDoctrine()->getManager();
-        $employe = $this->getUser();
+        $employe = $this->getUser(); 
+         if($employe!=null && $employe->hasRole('ROLE_SUPER_ADMIN'))
+             return $this->redirectToRoute('expeditor_manager');
+       
+        
        
         $repoCommande = $em->getRepository('AppBundle:Commande');
-        $commande = $repoCommande->findBy(array('statut' => "En attente", 'employe' => $employe))[0];
+        $commande = $repoCommande->findOneBy(array('statut' => "En attente", 'employe' => $employe));
 
 
         return $this->render('AppBundle:Employe:index.html.twig', ['commande' => $commande]);
@@ -34,11 +40,15 @@ class EmployeController extends Controller {
 
     public function listeAction() {
 
+        // r�cup�ration de l'entity manager � partir du service Doctrine
+        $em = $this->getDoctrine()->getManager();
 
+        // r�cup�ration du repository de livre:
+        $repo = $em->getRepository('AppBundle:Employe');
 
+        $employes = $repo->findAll();
 
-
-        return $this->render('AppBundle:Manager:index.html.twig', ['employes' => $employes]
+        return $this->render('AppBundle:Employe:liste.html.twig', ['employes' => $employes]
         );
     }
 

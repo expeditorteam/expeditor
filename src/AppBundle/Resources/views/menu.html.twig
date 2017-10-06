@@ -1,8 +1,8 @@
 <ul class="nav nav-tabs" id="myTab">
-                <li {% if (app.request.requesturi == path('expeditor_employe'))
+                {% if not is_granted("ROLE_SUPER_ADMIN") %}<li {% if (app.request.requesturi == path('expeditor_employe'))
                          or (app.request.requesturi == path('expeditor_homepage')|slice(0,-1))
                          or (app.request.requesturi == path('expeditor_homepage'))  %}class="active"{% endif %}
-                       ><a data-toogle="tab" href="{{ url('expeditor_employe') }}">Employe</a></li>  
+                       ><a data-toogle="tab" href="{{ url('expeditor_employe') }}">Employe</a></li>  {% endif %}
                 {% if is_granted("ROLE_SUPER_ADMIN") %}
                 <li {% if app.request.requesturi == path('expeditor_manager') %}class="active"{% endif %}
                        ><a data-toogle="tab" href="{{ url('expeditor_manager') }}">Manager</a></li>
