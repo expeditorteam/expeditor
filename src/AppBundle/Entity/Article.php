@@ -83,7 +83,6 @@ use Doctrine\ORM\Mapping as ORM;
     }
     
     function getPrix() {
-        dump( $this->prix);
         return $this->prix;
     }
 

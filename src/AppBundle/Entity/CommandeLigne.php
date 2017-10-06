@@ -67,10 +67,15 @@ class CommandeLigne {
     function setArticles($articles) {
         $this->articles = $articles;
     }
-    function getQuantite() {
+    public function getQuantite() {
         return $this->quantite;
     }
-
+    public function getPrix() {
+        return ($this->article->getPrix()*$this->quantite);
+    }
+    public function getPoids() {
+        return ($this->article->getPoids()*$this->quantite);;
+    }
     function setQuantite($quantite) {
         $this->quantite = $quantite;
     }
