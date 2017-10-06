@@ -4,7 +4,7 @@
 {% block body %}
 
 
-     
+
 
 
 
@@ -15,9 +15,11 @@
         <div class="panel panel-default">
             <div class="panel-heading">Informations client</div>
             <div class="panel-body">
-                <fieldset class="col-md-6">    	
-                    <p>Client X</p>
-                    <p>10 rue de paris 35000 Rennes</p>
+                <fieldset class="col-md-6">   	
+                    <span style="font-weight: bold">Nom :</span><span> {{ commande.client.nom }}</span>
+                    <br>
+                    <span style="font-weight: bold">Adresse :</span><span> {{ commande.client.adresse }}</span>
+                    </tr>
                 </fieldset>				
                 <div class="clearfix"></div>
             </div>
@@ -35,13 +37,16 @@
             </thead>
             <tbody>   
                 {% for commandeligne in commande.commandelignes %}
-                     <tr>
-                <td>{{ commandeligne.article.quantite }}</td>
-                 </tr>
-                      <tr>
-                <td>{{ commandeligne.quantite }}</td>
-                 </tr>
-        {% endfor %}
+                    <tr>
+                        <td>{{ commandeligne.article.nom }}</td>
+
+
+                        <td>{{ commandeligne.quantite }}</td>
+                        <td><input id="user_lic" type="number" min="0"></td>
+                    </tr>
+                {% endfor %}
+
+
 
             </tbody>
         </table>
