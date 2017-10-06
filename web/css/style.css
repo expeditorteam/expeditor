@@ -36,3 +36,42 @@ div#form div.plus{
     text-align: left;
     width:14px;
 }
+
+.ListeEmployes tbody{
+    height:200px;
+}
+
+.table-fixed{
+    width: 100%;
+    background-color: #f3f3f3;
+}
+.table-fixed tbody{
+        height:200px;
+    overflow-y:auto;
+    width: 100%;    
+    
+}
+.table-fixed tbody thead,
+.table-fixed tbody tbody,
+.table-fixed tbody tr,
+.table-fixed tbody td,
+.table-fixed tbody th{
+      display:block;
+}
+.table-fixed tbody td{
+       float:left;
+}
+.table-fixed thead tr th{
+        float:left;
+       background-color: #f39c12;
+       border-color:#e67e22;
+}
+
+
+tr.survolable:hover{
+    background-color: #f7f6ff;
+    cursor:pointer;
+}
+tr.survolable:hover td{
+    text-decoration: underline;
+}

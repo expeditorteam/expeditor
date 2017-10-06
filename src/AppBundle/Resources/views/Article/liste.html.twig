@@ -1,12 +1,14 @@
 {% extends "AppBundle::base.html.twig" %}
+{% block title %} Gestion des articles{% endblock %}
 {% block body %}
-{% block title %} <h1> Gestion des articles </h1>{% endblock %}
+    <h1> Gestion des articles </h1>
     <script>
-        function loadForm(id,nom,poids,stock){
+        function loadForm(id,nom,poids,stock,prix){
             document.getElementById("form_id").value=id;
             document.getElementById("form_nom").value=nom;
             document.getElementById("form_poids").value=poids;
             document.getElementById("form_stock").value=stock;
+            document.getElementById("form_prix").value=prix;
         }
         </script>
     <h3>Articles enregistrés</h3>
@@ -14,13 +16,15 @@
         <tr>
             <th>Nom de l'article </th>
             <th>Poids (en grammes)</th>
-            <th>Stock de l'article</th>
+            <th>Stock</th>
+            <th>Prix</th>
         </tr>
     {% for article in articles %}
-        <tr onclick="loadForm({{ article.id }},'{{ article.nom }}',{{ article.poids }},{{ article.stock }});" >
-            <td >{{ article.nom }} </td>            
-            <td>{{ article.poids }} </td>
-            <td>{{ article.stock }} </td>
+        <tr onclick="loadForm({{ article.id }},'{{ article.nom }}',{{ article.poids }},{{ article.stock }},{{ article.prix }});" class="survolable">
+            <td >{{ article.nom }}</td>            
+            <td>{{ article.poids }}</td>
+            <td>{{ article.stock }}</td>
+            <td>{{ article.prix }}</td>
             <td><a href="{{ url('expeditor_manager_articles_list') }}?delete={{ article.id }}">Supprimer</a></td>
         </tr>
     {% endfor %}

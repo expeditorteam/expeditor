@@ -42,7 +42,14 @@ use Doctrine\ORM\Mapping as ORM;
      * @ORM\Column(name="poids", type="integer", nullable=false)
      */
     private $poids;
-
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="prix", type="float", nullable=false)
+     */
+    private $prix;
+    
     function getId() {
         return $this->id;
     }
@@ -74,9 +81,20 @@ use Doctrine\ORM\Mapping as ORM;
     function setPoids($poids) {
         $this->poids = $poids;
     }
-    function __construct($nom=null, $stock=null, $poids=null) {
+    
+    function getPrix() {
+        dump( $this->prix);
+        return $this->prix;
+    }
+
+    function setPrix($prix) {
+        $this->prix = $prix;
+    }
+        
+    function __construct($nom=null, $stock=null, $poids=null, $prix=null) {
         $this->nom = $nom;
         $this->stock = $stock;
         $this->poids = $poids;
+        $this->prix = $prix; 
     }
 }

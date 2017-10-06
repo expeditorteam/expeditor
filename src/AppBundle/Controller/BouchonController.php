@@ -26,16 +26,16 @@ class BouchonController extends Controller {
         // Création des Articles :
         
         if (count($repoArticle->findBy(array('nom' => "Carte mère")))==0) {
-            $this->AddArticle("Carte mère", 10000, 200);
+            $this->AddArticle("Carte mère", 10000, 200,79.69);
         }
         if (count($repoArticle->findBy(array('nom' => "Disque")))==0) {
-            $this->AddArticle("Disque", 10000, 600);
+            $this->AddArticle("Disque", 10000, 600,155.42);
         }
         if (count($repoArticle->findBy(array('nom' => "Carte graphique")))==0) {
-            $this->AddArticle("Carte graphique", 10000, 300);
+            $this->AddArticle("Carte graphique", 10000, 300,345.90);
         }
         if (count($repoArticle->findBy(array('nom' => "Alimentation")))==0) {
-            $this->AddArticle("Alimentation", 10000, 1000);
+            $this->AddArticle("Alimentation", 10000, 1000,62.55);
         }
 
         // Création des Clients :
@@ -143,9 +143,9 @@ class BouchonController extends Controller {
         $em->flush();
     }
     
-    private function AddArticle($nom, $stock, $poids) {
+    private function AddArticle($nom, $stock, $poids,$prix) {
         $em = $this->getDoctrine()->getManager();
-        $article = new Article($nom, $stock, $poids);
+        $article = new Article($nom, $stock, $poids,$prix);
         $em->persist($article);
         $em->flush();
     }

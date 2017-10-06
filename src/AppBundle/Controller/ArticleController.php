@@ -54,6 +54,7 @@ class ArticleController extends Controller {
                 ->add('nom')
                 ->add('stock')
                 ->add('poids')
+                ->add('prix')
                 ->add('enregistrer', SubmitType::class)
                 ->getForm();
 
