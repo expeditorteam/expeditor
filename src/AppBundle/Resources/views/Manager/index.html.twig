@@ -37,18 +37,18 @@
     </br>
     <h3>Liste des Employés et leurs performance du jour</h3>
     <div class="ListeEmployes">
-    <table class="table">
+    <table class="table table-fixed table-striped">
         <thead>
             <tr>
-                <th>Salarié</th>
-                <th>Nombre de commandes traitées ce jour</th>
+                <th class="col-xs-5 col-lg-5">Salarié</th>
+                <th class="col-xs-7 col-lg-7">Nombre de commandes traitées ce jour</th>
             </tr>
             </thead>
             <tbody>
             {% for employe in employes %}
                 <tr>
-                    <td>{{ employe.username }}</td> 
-                    <td>{{listeNbCommande[loop.index-1]}}</td> 
+                    <td class="col-xs-5 col-lg-5">{{ employe.username }}</td> 
+                    <td class="col-xs-7 col-lg-7">{{listeNbCommande[loop.index-1]}}</td> 
                 </tr>
             {% endfor %}
         </tbody>

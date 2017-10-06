@@ -49,7 +49,7 @@ div#form div.plus{
         height:200px;
     overflow-y:auto;
     width: 100%;    
-    
+      display:block;
 }
 .table-fixed tbody thead,
 .table-fixed tbody tbody,
