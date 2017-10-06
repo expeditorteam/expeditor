@@ -49,14 +49,9 @@ class ManagerController extends Controller {
             //$query='SELECT * FROM commandes WHERE statut NOT LIKE "Traitée"';
           //  $stmt = $em->prepare($query); 
          //   $stmt->execute();
-            $commandesAtraiter = $query->getResult();
+            $commandesAtraiter = $query->getResult();   
             
-
-            
-            dump($commandesAtraiter);        
-        
-
-
+            dump($commandesAtraiter);
 
         // replace this example code with whatever you needs
         return $this->render('AppBundle::Manager/index.html.twig',

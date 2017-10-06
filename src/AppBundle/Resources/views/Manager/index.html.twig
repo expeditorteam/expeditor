@@ -23,9 +23,9 @@
                     <td>{{ commandesAtraiter.numero }}</td>
                     <td>{{ commandesAtraiter.dateDeCommande|date('Y-m-d') }}</td>
                     <td>{{ commandesAtraiter.client.getNom() }}</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td>{{ commandesAtraiter.getNbArticles() }}</td>
+                    <td>{{ commandesAtraiter.getPrix() }}</td>
+                    <td>{{ commandesAtraiter.getPoids() }}</td>
                     <td>{{ commandesAtraiter.employe }}</td>
                     <td>{{ commandesAtraiter.statut }}</td>
                 </tr>

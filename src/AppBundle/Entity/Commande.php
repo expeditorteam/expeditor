@@ -141,10 +141,25 @@ class Commande {
     function setStatut($statut) {
         $this->statut = $statut;
     }
+    
+    function getNbArticles(){
+        
+    }
+    
+    function getPrix(){
+        
+    }
+    
+    function getPoids(){
+        
+    }
+    
     function __construct($numero, \DateTime $dateDeCommande, Client $client, $statut) {
         $this->numero = $numero;
         $this->dateDeCommande = $dateDeCommande;
         $this->client = $client;
         $this->statut = $statut;
     }
+    
+    
 }
