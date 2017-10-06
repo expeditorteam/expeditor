@@ -12,23 +12,27 @@
         }
         </script>
     <h3>Articles enregistrés</h3>
-    <table class="table">
+    <table class="table table-fixed table-striped">
+           <thead>
         <tr>
-            <th>Nom de l'article </th>
-            <th>Poids (en grammes)</th>
-            <th>Stock</th>
-            <th>Prix</th>
+            <th class="col-xs-1 col-lg-3">Nom de l'article </th>
+            <th class="col-xs-1 col-lg-2 right">Poids (en grammes)</th>
+            <th class="col-xs-1 col-lg-2 center">Stock</th>
+            <th class="col-xs-1 col-lg-2 right">Prix</th>
+            <th class="col-xs-1 col-lg-3 center">Actions</th>
         </tr>
+            </thead>
+            <tbody>
     {% for article in articles %}
         <tr onclick="loadForm({{ article.id }},'{{ article.nom }}',{{ article.poids }},{{ article.stock }},{{ article.prix }});" class="survolable">
-            <td >{{ article.nom }}</td>            
-            <td>{{ article.poids }}</td>
-            <td>{{ article.stock }}</td>
-            <td>{{ article.prix }}</td>
-            <td><a href="{{ url('expeditor_manager_articles_list') }}?delete={{ article.id }}">Supprimer</a></td>
+            <td class="col-xs-1 col-lg-3">{{ article.nom }}</td>            
+            <td class="col-xs-1 col-lg-2 right">{{ article.poids }}</td>
+            <td class="col-xs-1 col-lg-2 center">{{ article.stock }}</td>
+            <td class="col-xs-1 col-lg-2 right">{{ article.prix }}</td>
+            <td class="col-xs-1 col-lg-3 center"><a href="{{ url('expeditor_manager_articles_list') }}?delete={{ article.id }}">Supprimer</a></td>
         </tr>
     {% endfor %}
-  
+     </tbody>
     </table>
     <h3>Ajouter/modifier un article</h3>
     <p>Pour modifier un article : sélectionnez-le dans la liste ci-dessus, modifiez les champs suivants et cliquer sur enregistrer.</p>

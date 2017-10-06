@@ -83,7 +83,7 @@ use Doctrine\ORM\Mapping as ORM;
     }
     
     function getPrix() {
-        return $this->prix;
+        return number_format(round($this->prix,2),2);
     }
 
     function setPrix($prix) {

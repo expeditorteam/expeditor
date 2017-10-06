@@ -75,3 +75,12 @@ tr.survolable:hover{
 tr.survolable:hover td{
     text-decoration: underline;
 }
+.center{
+    text-align: center;
+}
+.right{
+    text-align: right;
+}
+.justify{
+    text-align: justify;
+}
