@@ -11,9 +11,7 @@
                 <li {% if app.request.requesturi == path('expeditor_manager_import_commandes') %}class="active"{% endif %}
                        ><a data-toogle="tab" href="{{ url('expeditor_manager_import_commandes') }}">Import Commandes</a></li>
                 {% endif %}
-                <li {% if app.request.requesturi == path('expeditor_bouchon') %}class="active"{% endif %}
-                       ><a data-toogle="tab" href="{{ url('expeditor_bouchon') }}">Bouchon?</a></li>
-                
+               
                 <li >
                     <p class="navbar-text float-right">{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     Bonjour <b>{% if is_granted("ROLE_SUPER_ADMIN") %}M.{%endif%}

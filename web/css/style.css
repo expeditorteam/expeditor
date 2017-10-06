@@ -84,3 +84,22 @@ tr.survolable:hover td{
 .justify{
     text-align: justify;
 }
+
+ul.nav li p{
+    height: 1em;
+}
+
+.container{
+  margin-top: 5px;    
+}
+.onglet{
+    margin-top:0;
+    padding:10px;
+    border-bottom:1px #ccc solid;
+    border-right:1px #ccc solid;
+    border-left:1px #ccc solid;
+    background-color: #f7f6f6;
+}
+li.active a{
+        background-color: #f7f6f6 !important;
+}
