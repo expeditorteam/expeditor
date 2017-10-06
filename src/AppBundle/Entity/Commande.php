@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\Client;
 use AppBundle\Entity\CommandeLigne;
 use AppBundle\Entity\Employe;
+
 /**
  * Description of Commande
  *
@@ -145,15 +146,27 @@ class Commande {
     }
     
     function getNbArticles(){
-        
+        $NbArticles = 0;
+        foreach ($this->commandeLignes as $commandeLigne){
+            $NbArticles+= $commandeLigne->getQuantite();
+        }
+        return $NbArticles;
     }
     
     function getPrix(){
-        
+        $NbArticles = 0;
+        foreach ($this->commandeLignes as $commandeLigne){
+            $NbArticles+= $commandeLigne->getPrix();
+        }
+        return $NbArticles;
     }
     
     function getPoids(){
-        
+        $NbArticles = 300;
+        foreach ($this->commandeLignes as $commandeLigne){
+            $NbArticles+= $commandeLigne->getPoids();
+        }
+        return $NbArticles;
     }
     
     function __construct($numero, \DateTime $dateDeCommande, Client $client, $statut) {
