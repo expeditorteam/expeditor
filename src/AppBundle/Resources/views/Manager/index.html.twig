@@ -3,7 +3,7 @@
     {% block title %} <h1> Espace Manager </h1>{% endblock %}
     <div class="containerCommandes">
         <h3>Commandes à traiter</h3>
-
+<div class="CommandesATraiter">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -33,9 +33,10 @@
             </tbody>
         </table>
     </div>
-
+   </div>
     </br>
     <h3>Liste des Employés et leurs performance du jour</h3>
+    <div class="ListeEmployes">
     <table class="table">
             <tr>
                 <th>Salarié</th>
@@ -48,4 +49,5 @@
                 </tr>
             {% endfor %}
     </table>
+               </div>
 {% endblock %}
